@@ -2716,6 +2716,7 @@
 <h2 id="第一类列"><a href="#第一类列" class="headerlink" title="第一类列"></a>第一类列</h2><p>考虑组合意义，$n$个数，由$m$个轮换组成。那么构造轮换EGF（因为有标号），再除掉排列数 $${ n \brack m } = \frac{n!}{m!} [x^n](\sum_{i=1} (i-1)! \frac{x^i}{i!})^m$$ 不是很懂非1的ln，倍增完事$O(nlog^2n)$</p>
 <hr>
 <p>一类$O(n^2)$的多项式技巧：以exp为例，看这里<a href="https://baka.online/noi-online3%e4%bc%98%e7%a7%80%e5%ad%90%e5%ba%8f%e5%88%97-%e9%9b%86%e5%90%88%e5%b9%82%e7%ba%a7%e6%95%b0exp/">https://baka.online/noi-online3%e4%bc%98%e7%a7%80%e5%ad%90%e5%ba%8f%e5%88%97-%e9%9b%86%e5%90%88%e5%b9%82%e7%ba%a7%e6%95%b0exp/</a> 剩下的更简单，模仿一下就有了</p>
+<p>迁移到Hexo后的Update：站内搜索《NOI Online#3优秀子序列 集合幂级数exp》</p>
 <hr>
 <p>奇怪的题目：</p>
 <h2 id="付公主的背包"><a href="#付公主的背包" class="headerlink" title="付公主的背包"></a>付公主的背包</h2><p><a href="https://www.luogu.com.cn/problem/P4389">付公主的背包</a> 首先显然构造函数$f_i(x) = \frac{1}{1 - x^{v_i&#125;&#125;$卷起来就行了。但是这个复杂度很高。 考虑用加法代替乘法，求个$\ln $就可以了。这题的$\ln$有极好的性质： $$G(x) = \ln F(x) = \ln \frac{1}{1 - x^v}$$ 考虑求导求积分化简式子： $$G^{‘}(x) = \frac{F^{‘}(x)}{F(x)} = \sum_{i=1}^{\infty} v x^{xi - 1} $$ $$G(x) = \sum_{i=1}^{\infty} \frac{1}{i} x^{vi} $$ 记录每种$v$有几个，暴力求系数，调和级数的复杂度，再敲个多项式$\exp$就行了。</p>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="退役前给自己看的，删了一些东西放出来了，有兴趣可以看看     FFT，NTT全世界都会了…  分治FFT 是一类思想。举个板子： 给出了$g_{1,…,n-1}$，求$f_{0,…,n-1}$ $$f_i &#x3D; \sum_{j&#x3D;1}^i f_{i-j} g_j$$ 计算$f$需要用到之前的$f$。所">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-24T06:00:13.000Z">
-<meta property="article:modified_time" content="2021-06-17T15:15:25.493Z">
+<meta property="article:modified_time" content="2021-06-18T04:27:28.808Z">
 <meta property="article:author" content="kai586123">
 <meta name="twitter:card" content="summary">
 
@@ -226,7 +226,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+        <time title="修改时间：2021-06-18 12:27:28" itemprop="dateModified" datetime="2021-06-18T12:27:28+08:00">2021-06-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -269,6 +269,7 @@
 <h2 id="第一类列"><a href="#第一类列" class="headerlink" title="第一类列"></a>第一类列</h2><p>考虑组合意义，$n$个数，由$m$个轮换组成。那么构造轮换EGF（因为有标号），再除掉排列数 $${ n \brack m } = \frac{n!}{m!} [x^n](\sum_{i=1} (i-1)! \frac{x^i}{i!})^m$$ 不是很懂非1的ln，倍增完事$O(nlog^2n)$</p>
 <hr>
 <p>一类$O(n^2)$的多项式技巧：以exp为例，看这里<a target="_blank" rel="noopener" href="https://baka.online/noi-online3%e4%bc%98%e7%a7%80%e5%ad%90%e5%ba%8f%e5%88%97-%e9%9b%86%e5%90%88%e5%b9%82%e7%ba%a7%e6%95%b0exp/">https://baka.online/noi-online3%e4%bc%98%e7%a7%80%e5%ad%90%e5%ba%8f%e5%88%97-%e9%9b%86%e5%90%88%e5%b9%82%e7%ba%a7%e6%95%b0exp/</a> 剩下的更简单，模仿一下就有了</p>
+<p>迁移到Hexo后的Update：站内搜索《NOI Online#3优秀子序列 集合幂级数exp》</p>
 <hr>
 <p>奇怪的题目：</p>
 <h2 id="付公主的背包"><a href="#付公主的背包" class="headerlink" title="付公主的背包"></a>付公主的背包</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4389">付公主的背包</a> 首先显然构造函数$f_i(x) = \frac{1}{1 - x^{v_i&#125;&#125;$卷起来就行了。但是这个复杂度很高。 考虑用加法代替乘法，求个$\ln $就可以了。这题的$\ln$有极好的性质： $$G(x) = \ln F(x) = \ln \frac{1}{1 - x^v}$$ 考虑求导求积分化简式子： $$G^{‘}(x) = \frac{F^{‘}(x)}{F(x)} = \sum_{i=1}^{\infty} v x^{xi - 1} $$ $$G(x) = \sum_{i=1}^{\infty} \frac{1}{i} x^{vi} $$ 记录每种$v$有几个，暴力求系数，调和级数的复杂度，再敲个多项式$\exp$就行了。</p>
