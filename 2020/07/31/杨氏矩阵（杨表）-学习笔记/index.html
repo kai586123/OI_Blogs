@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="其实学这个并不能帮我改变NOI要打铁这件事 从19年集训队论文里抄了一下。省略证明，记一些不严谨，仅仅是能用级别的结论。  杨表的插入 比如插入行，扫每一行，找到比它大的最小值，交换一下继续下一行。注意到杨表的单调性，可以二分。b找不到就丢这一行后面  杨表与LIS 杨表第一行的长度就是LIS。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杨氏矩阵（杨表） 学习笔记">
+<meta property="og:url" content="http://oi.baka.online/2020/07/31/%E6%9D%A8%E6%B0%8F%E7%9F%A9%E9%98%B5%EF%BC%88%E6%9D%A8%E8%A1%A8%EF%BC%89-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="其实学这个并不能帮我改变NOI要打铁这件事 从19年集训队论文里抄了一下。省略证明，记一些不严谨，仅仅是能用级别的结论。  杨表的插入 比如插入行，扫每一行，找到比它大的最小值，交换一下继续下一行。注意到杨表的单调性，可以二分。b找不到就丢这一行后面  杨表与LIS 杨表第一行的长度就是LIS。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-31T09:42:58.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.552Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/07/31/%E6%9D%A8%E6%B0%8F%E7%9F%A9%E9%98%B5%EF%BC%88%E6%9D%A8%E8%A1%A8%EF%BC%89-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;07&#x2F;31&#x2F;%E6%9D%A8%E6%B0%8F%E7%9F%A9%E9%98%B5%EF%BC%88%E6%9D%A8%E8%A1%A8%EF%BC%89-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;07&#x2F;31&#x2F;杨氏矩阵（杨表）-学习笔记&#x2F;&quot;,&quot;title&quot;:&quot;杨氏矩阵（杨表） 学习笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>杨氏矩阵（杨表） 学习笔记 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A8%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">杨表的插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A8%E8%A1%A8%E4%B8%8ELIS"><span class="nav-number">2.</span> <span class="nav-text">杨表与LIS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%88%97%E8%AE%A1%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">排列计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A8%E8%A1%A8%E8%AE%A1%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">杨表计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LIS%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6%E7%9A%84%E6%8E%92%E5%88%97%E8%AE%A1%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">LIS长度限制的排列计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BJWC2018-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">6.</span> <span class="nav-text">[BJWC2018]最长上升子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CTSC2017-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">7.</span> <span class="nav-text">[CTSC2017]最长上升子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%A0%BC%E9%AA%A8%E7%89%8C"><span class="nav-number">8.</span> <span class="nav-text">三格骨牌</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%85%E7%A4%BC%E9%9B%86%E8%AE%AD-2017-Day11-PATH"><span class="nav-number">9.</span> <span class="nav-text">[雅礼集训 2017 Day11]PATH</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/07/31/%E6%9D%A8%E6%B0%8F%E7%9F%A9%E9%98%B5%EF%BC%88%E6%9D%A8%E8%A1%A8%EF%BC%89-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          杨氏矩阵（杨表） 学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-31 17:42:58" itemprop="dateCreated datePublished" datetime="2020-07-31T17:42:58+08:00">2020-07-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>其实学这个并不能帮我改变NOI要打铁这件事 从19年集训队论文里抄了一下。省略证明，记一些不严谨，仅仅是能用级别的结论。</p>
+<h2 id="杨表的插入"><a href="#杨表的插入" class="headerlink" title="杨表的插入"></a>杨表的插入</h2><p>比如插入行，扫每一行，找到比它大的最小值，交换一下继续下一行。注意到杨表的单调性，可以二分。b找不到就丢这一行后面</p>
+<h2 id="杨表与LIS"><a href="#杨表与LIS" class="headerlink" title="杨表与LIS"></a>杨表与LIS</h2><p>杨表第一行的长度就是LIS。</p>
+<h2 id="排列计数"><a href="#排列计数" class="headerlink" title="排列计数"></a>排列计数</h2><p>枚举$n$的所有拆分，把它们的$f$（有多少种杨表）的平方加入答案</p>
+<h2 id="杨表计数"><a href="#杨表计数" class="headerlink" title="杨表计数"></a>杨表计数</h2><p>定义$h$是某个格子的正下边，正右边（包括自己）一共有几个格子。有钩子公式： $$f_{\lambda} = \frac{n!}{\prod h_{\lambda}(i,j)}$$</p>
+<h2 id="LIS长度限制的排列计数"><a href="#LIS长度限制的排列计数" class="headerlink" title="LIS长度限制的排列计数"></a>LIS长度限制的排列计数</h2><p>其实就是限制一下形态之后的杨表计数 $k=2$：$\frac{1}{n+1}\binom{2n}{n}$ $k=3$：$\frac{1}{(n+1)^2(n+2)}\sum_{j=0}^n \binom{2j}{j}\binom{n+1}{k+1}\binom{n+2}{k+1}$ 后面的貌似比较难搞。不过可以证明，这玩意是可以递推的。</p>
+<hr>
+<p>剩下的东西摸了，来两个题：</p>
+<h2 id="BJWC2018-最长上升子序列"><a href="#BJWC2018-最长上升子序列" class="headerlink" title="[BJWC2018]最长上升子序列"></a>[BJWC2018]最长上升子序列</h2><p>考虑暴力枚举$n$的划分，之后用钩子定理搞一下有多少杨表记为$f$，则把$f^2 \lambda_1$计入答案。 当然这个题还有另一种做法：考虑对每个位置的LIS差分，则变成了01序列，DP套DP搞一下即可</p>
+<h2 id="CTSC2017-最长上升子序列"><a href="#CTSC2017-最长上升子序列" class="headerlink" title="[CTSC2017]最长上升子序列"></a>[CTSC2017]最长上升子序列</h2><p>最长上升序列不超过$k$，等价于可以划分为不超过$k$个下降序列，即等价于杨表的前$k$列一共有多少元素。 注意到序列给定，于是只需扫描线，动态维护杨表。就有了一个平方算法。 注意到改变杨表的插入方式是等价的，并且对于一个元素，它两位坐标中的min是根号的，于是维护两种矩阵就可以了。至于如何维护第二个矩阵？反转比较方式即可。</p>
+<h2 id="三格骨牌"><a href="#三格骨牌" class="headerlink" title="三格骨牌"></a>三格骨牌</h2><p>一道网上找到的模拟赛题 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/coldchair/p/11116902.html">https://www.cnblogs.com/coldchair/p/11116902.html</a> <a target="_blank" rel="noopener" href="https://memset0.cn/contest20190711">https://memset0.cn/contest20190711</a> 有点丧心病狂，不写了。大概是个钩子定理的题</p>
+<h2 id="雅礼集训-2017-Day11-PATH"><a href="#雅礼集训-2017-Day11-PATH" class="headerlink" title="[雅礼集训 2017 Day11]PATH"></a>[雅礼集训 2017 Day11]PATH</h2><p>考虑二维的情况：首先易知这玩意是个卡特兰数。卡特兰数对应了$2 \times n$的杨表。类比一下，这道题就是给定了划分$\lambda$，求有多少种杨表。 考虑钩子公式：要求$\prod h(i,j)$。考虑枚举每个$i$，则可能的值在$[1,\lambda_i+n-i]$之间。首先全乘上，再除掉不合法的。可以注意到，一行的值不一样，所以是个阶乘 考虑什么情况下会不合法：令$r_i =\lambda_i+n-i$，则$r_i - r_j(i &lt; j)$不合法。拆开之后发现FFT一下就行了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/10/%E5%9B%BE%E8%AE%BA%E9%A2%98%E8%A7%A3/" rel="prev" title="图论题解">
+                  <i class="fa fa-chevron-left"></i> 图论题解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/01/wc2020%E6%B8%B8%E8%AE%B0/" rel="next" title="WC2020游记">
+                  WC2020游记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

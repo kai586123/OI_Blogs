@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="人比较菜，找的题也垃圾，轻点喷  [GYM102114A] Always Online 题意：仙人掌，求最大流异或和。 考虑环，那么注意到如果选环，环上最小的边一定会被割，直接把它割开，边权加在其它边上。之后按边权合并即可  [CF1240F] Football 题意：给一张图，选一些边，为每条边分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论题解">
+<meta property="og:url" content="http://oi.baka.online/2020/07/10/%E5%9B%BE%E8%AE%BA%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="人比较菜，找的题也垃圾，轻点喷  [GYM102114A] Always Online 题意：仙人掌，求最大流异或和。 考虑环，那么注意到如果选环，环上最小的边一定会被割，直接把它割开，边权加在其它边上。之后按边权合并即可  [CF1240F] Football 题意：给一张图，选一些边，为每条边分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-10T10:00:16.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.483Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/07/10/%E5%9B%BE%E8%AE%BA%E9%A2%98%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;07&#x2F;10&#x2F;%E5%9B%BE%E8%AE%BA%E9%A2%98%E8%A7%A3&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;07&#x2F;10&#x2F;图论题解&#x2F;&quot;,&quot;title&quot;:&quot;图论题解&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>图论题解 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GYM102114A-Always-Online"><span class="nav-number">1.</span> <span class="nav-text">[GYM102114A] Always Online</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CF1240F-Football"><span class="nav-number">2.</span> <span class="nav-text">[CF1240F] Football</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LibreOJ-%CE%B2-Round-7-%E7%BD%91%E6%A0%BC%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">[LibreOJ β Round #7] 网格图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JOISC-2016-Day-3-%E7%94%B5%E6%8A%A5"><span class="nav-number">4.</span> <span class="nav-text">[JOISC 2016 Day 3] 电报</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IOI2017-%E5%8F%A4%E4%B9%A6"><span class="nav-number">5.</span> <span class="nav-text">[IOI2017] 古书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDOI2019-%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE"><span class="nav-number">6.</span> <span class="nav-text">[SDOI2019] 世界地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AGC017E-Jigsaw"><span class="nav-number">7.</span> <span class="nav-text">[AGC017E] Jigsaw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC092D-Two-Faced-Edges"><span class="nav-number">8.</span> <span class="nav-text">[ARC092D] Two Faced Edges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AGC004F-Namori"><span class="nav-number">9.</span> <span class="nav-text">[AGC004F] Namori</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AGC003F-Fraction-of-Fractal"><span class="nav-number">10.</span> <span class="nav-text">[AGC003F] Fraction of Fractal</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/07/10/%E5%9B%BE%E8%AE%BA%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图论题解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-10 18:00:16" itemprop="dateCreated datePublished" datetime="2020-07-10T18:00:16+08:00">2020-07-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>人比较菜，找的题也垃圾，轻点喷</p>
+<h2 id="GYM102114A-Always-Online"><a href="#GYM102114A-Always-Online" class="headerlink" title="[GYM102114A] Always Online"></a>[GYM102114A] Always Online</h2><p>题意：仙人掌，求最大流异或和。 考虑环，那么注意到如果选环，环上最小的边一定会被割，直接把它割开，边权加在其它边上。之后按边权合并即可</p>
+<h2 id="CF1240F-Football"><a href="#CF1240F-Football" class="headerlink" title="[CF1240F] Football"></a>[CF1240F] Football</h2><p>题意：给一张图，选一些边，为每条边分配一个$[1,k]$的值，使得对于每个点的出边，值的出现次数极差$\leq 2$。构造解，最大化$\sum w_i deg_i$。 枚举每一条边，考虑染色：如果有可用的方法，就直接染上。否则考虑对原图进行修改。考虑什么时候加不上新边。可以把一个点出边出现次数化为$0,1,2$。如果不存在可行边，要求不存在颜色在两边出现次数都$&lt; 2$。考虑选择颜色$A$，在$x$出现$2$次，在$y$出现$0$次。$B$同理。 之后选$x,y$中的一个点为起点，走一条$BA$交错的路。之后把它反转。可以发现这样的路一定可以找到，并且反转后，一定可以加入新边。</p>
+<h2 id="LibreOJ-β-Round-7-网格图"><a href="#LibreOJ-β-Round-7-网格图" class="headerlink" title="[LibreOJ β Round #7] 网格图"></a>[LibreOJ β Round #7] 网格图</h2><p>题意：网格图内有$K$个障碍，钦定起点，多次询问到终点的距离。其中距离指转向次数。 首先把没用的缩起来：如果多行没有障碍，缩成一行。之后再把连续无障碍的段缩在一起，点数就是$O(K)$了。考虑优化边数：以行向列连边为例，考虑对于每一行，维护一棵线段树。那么连边就变成了区间连边。 具体来说，因为如果横着的是连续的，那么跨过它的一定也连续，所以主席树优化即可。之后BFS就可以了。</p>
+<h2 id="JOISC-2016-Day-3-电报"><a href="#JOISC-2016-Day-3-电报" class="headerlink" title="[JOISC 2016 Day 3] 电报"></a>[JOISC 2016 Day 3] 电报</h2><p>题意：给一张图，每个点的出度均为$1$。每个点有代价$c_i$，表示改变它出边指向的代价。最小代价使图变强连通 考虑如何变为强连通：把图断成若干链，再拼起来。如果只有树，那么贪心留下每个点入边最大的就可以了。如果是环，继续这么做。但是可能选了一整个环。特判掉就好了。</p>
+<h2 id="IOI2017-古书"><a href="#IOI2017-古书" class="headerlink" title="[IOI2017] 古书"></a>[IOI2017] 古书</h2><p>题意：给一个排列$p$，要把$i$位置的书运到$p_i$位置。从一个位置走到另一个位置的代价是$i-j$。任意时刻，手上可以拿最多一本书。可以拿起，放下，交换，取决于当前位置和自己有没有书。一开始有起点$s$，求最小代价。 先假设起点是$1$。把排列变成图。我们称答案的下界$d(p)=\sum{i-p_i}$。 如果只有一个环，答案是$d(p)$。如果有两个环，则当它们不交时，答案是$d(p)+2$，否则是$d(p)$。推广一下，当有多个环，答案是$d(p)+2E$，其中$E$是没有被环边跨过的边集。 当起点不为$1$时，考虑把和起点相交的环缩在一起。在走的过程中一定会经过边界，那么此时直接走到其它环进行上面的做法即可。 当起点不为$1$时，可能起点被大环套在里面。那么走到大环上需要额外的代价。这个代价可以用最短路求出。</p>
+<h2 id="SDOI2019-世界地图"><a href="#SDOI2019-世界地图" class="headerlink" title="[SDOI2019] 世界地图"></a>[SDOI2019] 世界地图</h2><p>题意：给一个网格图，且特别的，网格图左右相连，上下不相连。每次给一个左右区间，求删掉后的MST。$n \leq 100, m \leq 10000$ 求一个前缀MST，求一个后缀MST，合并即可。问题就是如何维护MST。以前缀为例：加入一排点的时候，会影响之前的一些链。链满足两端点都在上一排点。所以维护一个MST的虚树就可以了。</p>
+<h2 id="AGC017E-Jigsaw"><a href="#AGC017E-Jigsaw" class="headerlink" title="[AGC017E] Jigsaw"></a>[AGC017E] Jigsaw</h2><p>题意：有条状拼图：中间有一条，左右各有悬空的一条。中间的高度给定。现在要把拼图横着放，满足没有块有左右悬空。判断是否可行。 如果有悬空的，下一块必须不悬空。并且高度相同。定义拼图左右各有一个权值，取决于它是否悬空，以及它在左边还是右边。把左右权值连边。那么就是要找若干条边不交的路径，覆盖整个图，并且特别的，钦定了起点终点类型。 考虑新建一个源点作为起点，路径就变成了回路。考虑入点，入度不能大于出度，出点出度不能大于入度。 特别的，联通块必须存在入出度不等的点。这是因为如果不存在，那么只能对一个点加两条边，不合法。而只要存在一个点不等，就会存在另一个点对称的不等。</p>
+<h2 id="ARC092D-Two-Faced-Edges"><a href="#ARC092D-Two-Faced-Edges" class="headerlink" title="[ARC092D] Two Faced Edges"></a>[ARC092D] Two Faced Edges</h2><p>题意：有向图，对于每条边求改变方向后强连通分量数量是否改变 可以发现问题等价于删掉这条边后，是否$x$可以到达$y$和$y$可以到达$x$恰有一个成立。考虑第一个问题怎么做。本质上不经过$(x,y)$就是不经过$x$点。于是删掉$x$点，枚举出点，求是否存在两条到$y$的路。考虑优化，$y$点直接从$(x,y)$经过一次，从任意一个点经过一次，也就是经过两次即可，所以任意点如果已经被经过两次就不用BFS了。</p>
+<h2 id="AGC004F-Namori"><a href="#AGC004F-Namori" class="headerlink" title="[AGC004F] Namori"></a>[AGC004F] Namori</h2><p>题意：树或者基环树，可以选一条边，如果两端点颜色相同，同时变色。一开始是白色，求最小变成黑色的次数。 把树黑白染色，之后问题转化为把树上每种颜色取反。这样可以把操作看作swap相邻的颜色。 对于树，贪心的求出每条边需要被经过多少次即可。令两种颜色分别为$1,-1$，维护$f_u$表示子树和。如果根的值不为$0$无解 对于环，删掉一条边当作树先做一下 如果是偶环：这条边假设被走了$x$次，则考虑这条边的两端点到LCA的路径，一个$+x$，一个$-x$。如果直接用DFS树，那么只需对每个点的$f$排序，取中位数为$x$即可 如果是奇环：之前定义操作一条边是swap颜色，但是现在奇环上的边两端颜色相同，所以可以看作是同时把某种颜色数量$+-2$。这条路不可以用来当捷径，所以操作它是不优的。但是它可以改变根的值，所以如果无解可以改为有解。</p>
+<h2 id="AGC003F-Fraction-of-Fractal"><a href="#AGC003F-Fraction-of-Fractal" class="headerlink" title="[AGC003F] Fraction of Fractal"></a>[AGC003F] Fraction of Fractal</h2><p>题意：给$01$矩阵。定义$k$级分型是$k-1$级分型中每个$1$的位置放一个$k-1$级分形得到的矩阵。求$k$级分型连通块数。$K \leq 10^{18}$ 首先特判一下不连通的块。如果任意方向两个块都联通，最终图也是联通的。所以只剩下了在左右/上下联通的图。以竖着联通为例，那么可以有这样的推论：最终的图一定是多个竖着的联通条。操作一次会合并若干联通条。 考虑知道了$i-1$的答案，求$i$的。可以发现就是上一次的数量乘一下，减去合并的数量。合并的数量取决于原图中竖着拼起来合并了多少。于是可以矩阵乘法。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/24/%E8%81%94%E8%80%832020-b%E5%8D%B7-%E4%B8%81%E9%A6%99%E4%B9%8B%E8%B7%AF-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/" rel="prev" title="联考2020 B卷 丁香之路 欧拉回路">
+                  <i class="fa fa-chevron-left"></i> 联考2020 B卷 丁香之路 欧拉回路
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/31/%E6%9D%A8%E6%B0%8F%E7%9F%A9%E9%98%B5%EF%BC%88%E6%9D%A8%E8%A1%A8%EF%BC%89-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="杨氏矩阵（杨表） 学习笔记">
+                  杨氏矩阵（杨表） 学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

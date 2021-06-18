@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Minimax 之前写过题解，在这里 很好想，不过代码有点难写…  Slay the Spire 看错输入啦OAO。以为强化牌可以有小数w。 强化牌$ &gt; 1$，并且都是整数的情况下，出强化一定比出攻击优秀。 分类讨论，有两种情况： 选的强化牌$\geq k - 1$，那么出$k-1$次，然后攻击一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PKUWC&#x2F;SC 乱做">
+<meta property="og:url" content="http://oi.baka.online/2019/12/17/pkuwc-sc-%E4%B9%B1%E5%81%9A/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="Minimax 之前写过题解，在这里 很好想，不过代码有点难写…  Slay the Spire 看错输入啦OAO。以为强化牌可以有小数w。 强化牌$ &gt; 1$，并且都是整数的情况下，出强化一定比出攻击优秀。 分类讨论，有两种情况： 选的强化牌$\geq k - 1$，那么出$k-1$次，然后攻击一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-17T03:25:33.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.105Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/12/17/pkuwc-sc-%E4%B9%B1%E5%81%9A/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;12&#x2F;17&#x2F;pkuwc-sc-%E4%B9%B1%E5%81%9A&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;12&#x2F;17&#x2F;pkuwc-sc-乱做&#x2F;&quot;,&quot;title&quot;:&quot;PKUWC&#x2F;SC 乱做&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>PKUWC/SC 乱做 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Minimax"><span class="nav-number">1.</span> <span class="nav-text">Minimax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slay-the-Spire"><span class="nav-number">2.</span> <span class="nav-text">Slay the Spire</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%97%E5%9C%B0%E4%B8%BB"><span class="nav-number">3.</span> <span class="nav-text">斗地主</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">随机算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%8E%E4%BA%BA%E6%9D%80"><span class="nav-number">5.</span> <span class="nav-text">猎人杀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0"><span class="nav-number">6.</span> <span class="nav-text">随机游走</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E6%8E%92%E5%90%8D"><span class="nav-number">7.</span> <span class="nav-text">真实排名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">8.</span> <span class="nav-text">最大前缀和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%96%97%E5%9C%B0"><span class="nav-number">9.</span> <span class="nav-text">主斗地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%9F%E9%99%85%E7%A9%BF%E8%B6%8A"><span class="nav-number">10.</span> <span class="nav-text">星际穿越</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E4%BB%99%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">11.</span> <span class="nav-text">神仙的游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PKUSC"><span class="nav-number">12.</span> <span class="nav-text">PKUSC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T1"><span class="nav-number">13.</span> <span class="nav-text">T1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T2"><span class="nav-number">14.</span> <span class="nav-text">T2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T3"><span class="nav-number">15.</span> <span class="nav-text">T3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T4"><span class="nav-number">16.</span> <span class="nav-text">T4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T5"><span class="nav-number">17.</span> <span class="nav-text">T5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T6"><span class="nav-number">18.</span> <span class="nav-text">T6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T1-1"><span class="nav-number">19.</span> <span class="nav-text">T1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T2-1"><span class="nav-number">20.</span> <span class="nav-text">T2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T3-1"><span class="nav-number">21.</span> <span class="nav-text">T3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T4-1"><span class="nav-number">22.</span> <span class="nav-text">T4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T5-1"><span class="nav-number">23.</span> <span class="nav-text">T5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T6-1"><span class="nav-number">24.</span> <span class="nav-text">T6</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/12/17/pkuwc-sc-%E4%B9%B1%E5%81%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PKUWC/SC 乱做
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-17 11:25:33" itemprop="dateCreated datePublished" datetime="2019-12-17T11:25:33+08:00">2019-12-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Minimax"><a href="#Minimax" class="headerlink" title="Minimax"></a>Minimax</h2><p>之前写过题解，在<a target="_blank" rel="noopener" href="https://baka.online/pkuwc2018-minimax/">这里</a> 很好想，不过代码有点难写…</p>
+<h2 id="Slay-the-Spire"><a href="#Slay-the-Spire" class="headerlink" title="Slay the Spire"></a>Slay the Spire</h2><p>看错输入啦OAO。以为强化牌可以有小数w。 强化牌$ &gt; 1$，并且都是整数的情况下，出强化一定比出攻击优秀。 分类讨论，有两种情况： 选的强化牌$\geq k - 1$，那么出$k-1$次，然后攻击一次。这种情况下剩下的牌两种都可以选。 选的强化牌$ &lt; k - 1 $，全出然后攻击。这种情况下多出来的牌只能选攻击牌。 那么定义$f_{i,j},g_{i,j}$分别表示前$i$张牌，选了$j$张强化，各方案价值积的和，与前$i$张选了$j$张攻击价值和的和。然后分类随便统计即可。</p>
+<h2 id="斗地主"><a href="#斗地主" class="headerlink" title="斗地主"></a>斗地主</h2><p>大模拟，咕咕咕</p>
+<h2 id="随机算法"><a href="#随机算法" class="headerlink" title="随机算法"></a>随机算法</h2><p>考虑一个$O(3^nn)$的大暴力。令$f_{s1,s2}$表示$s1$集合，构成的独立集是$s2$的方案。枚举加点转移。 发现最优答案一定是由一个子最优状态扩展来的。那么可以压掉具体独立集的状态。 具体来说我们令$f_s,g_s$表示$s$集合构成最大独立集方案，最大独立集大小。 考虑加入一个点$x$，令$w_x$表示$x$与所有和$x$相连点的集合。 首先更新$g$，如果变大把$f$清零。 $$f_{s \cup w_x} \leftarrow f_s P_{n - s - 1}^{w_x - (w_x \cap s) - 1}$$</p>
+<h2 id="猎人杀"><a href="#猎人杀" class="headerlink" title="猎人杀"></a>猎人杀</h2><p>首先做一个非常脑洞的转化：一个猎人死了，不把它删掉，留在集合中。更改打枪方案为：如果打到的是死人，就继续再打一枪。 记录人数和为$A$，挂掉的人数为$K$。令打中某个人，原来的概率，新的概率为$P_1,P_2$ $$P_1 = \frac{ w_i }{A - K }$$ $$P_2 = \frac{K}{ A } P_2 + \frac{w_i}{A}$$ 可以发现$P_1 = P_2$ 那么一个容斥，枚举在$1$之后被打死的集合$s$。记$s$的$w$和为$S$ $$ans = \sum_{s} (-1)^{ s } \sum_{i=0}^{\infty} (1- \frac{S + w_1}{A}) \frac{w_i}{A} $$ 拿出后面的部分，发现是收敛的，直接提出来： $$ \sum_{i=0}^{\infty} (1- \frac{S + w_1}{A}) \frac{w_i}{A} = \frac{w_1}{S + w_1}$$ $$ans = \sum_{s} (-1)^{ s }\frac{w_1}{S + w_1} = w_1 \sum_{s} \frac{ (-1)^{ s } }{S + w_1} $$ 考虑记录对于$S$，$\sum (-1)^{s}$是多少。 构造生成函数$F(x)$ $$F(x) = \prod_{i=2}^{A - w_1} (1 - x^{w_i}) $$ 那么$[x^i]F(x)$就是要的东西。 这个式子可以用分治FFT求出来。</p>
+<h2 id="随机游走"><a href="#随机游走" class="headerlink" title="随机游走"></a>随机游走</h2><p>考虑$\rm{min-max}$容斥，求出到每个集合的$\min$即可。枚举集合$s$，定义$f_x$为$x$点走进$s$的期望步数。 如果$x \in s$，$f_x = 0$ 否则有： $$f_x = \frac{1}{deg_x} (f_{fa} + \sum_{y \in son} f_y) + 1$$ 有一个树上高斯消元的套路：每个$f$都可以被表示为$f_x = A_x f_{fa} + B_x$ 推一下式子： $$deg_x f_x = f_{fa} + \sum_{y} A_y f_x + B_y $$ $$f_x = \frac{1}{deg_x - \sum_y a_y} f_{fa} + \frac{\sum_y b_y + deg_x}{deg_x - \sum_y a_y} $$ 那么可以快速求出$f_{root}$。</p>
+<hr>
+<h2 id="真实排名"><a href="#真实排名" class="headerlink" title="真实排名"></a>真实排名</h2><p>签到题，考虑哪些选手翻倍不会影响自己。 如果自己不翻倍，翻倍后还是比自己小的，和本来就大于等于自己的可以动。 如果自己翻倍，那么翻倍前到翻倍后的一段都要翻。 组合数算一算就好了。</p>
+<h2 id="最大前缀和"><a href="#最大前缀和" class="headerlink" title="最大前缀和"></a>最大前缀和</h2><p>观察数据范围发现显然是$O(2^nn)$的算法。考虑状压DP，钦定一些点是本次答案点。 用$f_s,g_s$分别表示$s$集合排列，使得最后一个位置前缀和最大的方案数，与$s$集合排列，任意时刻前缀和$ \leq 0$的方案数。 $$f_s = \sum_{s - i} f_{s - i} (sum_{s - i} &gt; 0)$$ $$g_s = \sum_{s - i} g_{s - i} (sum_s \leq 0) $$ 第二个意义很明确。第一个转移的意思是，把$i$元素插到$s-i$排列的最前面。 注意到本题中最小前缀和必须选择至少一个数字，所以这样转移合法。 最后用两个数组计算答案即可。</p>
+<h2 id="主斗地"><a href="#主斗地" class="headerlink" title="主斗地"></a>主斗地</h2><p>并没有什么思维难度的恶心搜索题。。。还没写。。。</p>
+<h2 id="星际穿越"><a href="#星际穿越" class="headerlink" title="星际穿越"></a>星际穿越</h2><p>观察可以发现，最优秀的方案要么是直接向左跳，要么是向右跳一次再一直向左。钦定一个起点，向左走的距离一定是一段一段的。 于是利用性质可以考虑一个$O(n^2)$的简单暴力，计算出任意点对的距离就行了。 优化这个暴力，把记录两点间距离，改成记录一个点跳$i$次最左可以跳到哪里。倍增优化。 具体来说，定义数组$f_{x,i}$表示从$\forall x \in [x, n]$点开始跳$2^i$次可以跳到哪里。 求出$f$后，记录$g_{x,i}$表示跳整个$[f_{x,i},x-1]$的点一共需要多少次。 最后统计答案。首先向左跳一次，然后用$f$数组计算答案。容易发现这样是没有问题的。</p>
+<h2 id="神仙的游戏"><a href="#神仙的游戏" class="headerlink" title="神仙的游戏"></a>神仙的游戏</h2><p>考虑一个做法。问号是匹配符，无视之。我们定义$A(x),B(x)$，使得$A(x)=\sum [S_i == 0] x^i,B(x) = \sum [S_i == 1] x^i$，然后做一个减法卷积。 然而这样是有问题的。对于长度大于一半的$border$，会有重复部分，然而这样匹配出的方案可能一个问号分别充当了$0,1$各一次。 考虑$border$和$period$的关系。如果存在一个$border$长度为$x$，那么剩下的部分在$\mod S - x $意义下相等。这个显然是不相交的。 NTT求一下减法卷积，然后枚举每一段检查。复杂度是一个调和级数。</p>
+<h2 id="PKUSC"><a href="#PKUSC" class="headerlink" title="PKUSC"></a>PKUSC</h2><p>把每个点的概率加起来就行了。考虑把一个点放在一个圆上，它与多边形交的弧长就是答案。 那么直接解方程解出所有的交点，极角排序，判断每一段弧在多边形内还是外。 判断一个点在多边形内外，可以考虑向任意方向作射线，如果没有和点相交，可根据与边交点数量奇偶性判断内外。 本题中坐标都是整数，所以选要判断的弧上一个非整数点作射线即可避免交到点上的事情。</p>
+<hr>
+<p>下面的题并没有地方交OAO <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xzz_233/p/10292983.html">题面</a></p>
+<h2 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h2><p>令$f_s$表示集合$s$的方案数，枚举拓扑序最后的点再枚举出边转移。</p>
+<h2 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h2><p>钦定一个点或边做代表元素，考虑过这个元素的方案。把点和边分开计算，减一下，发现每种方案只被算了一次。 令$f_i$为有$i$种颜色经过的点的数量，则有 $$ans_x = \sum_{i=x}^n f_i \binom{i}{k}$$ 然后卷卷就行了。</p>
+<h2 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h2><p>不会斗地主。</p>
+<h2 id="T4"><a href="#T4" class="headerlink" title="T4"></a>T4</h2><p>网上找到的题和题解貌似不符，233，咕了</p>
+<h2 id="T5"><a href="#T5" class="headerlink" title="T5"></a>T5</h2><p>如果两个环有公共边，它们在一个强联通内。先求强联通，考虑每个分量，把有向边变无向，可以感性理解到，如果有公共边一定在一个点双内。</p>
+<h2 id="T6"><a href="#T6" class="headerlink" title="T6"></a>T6</h2><p>咕。</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xgc_woker/article/details/90632710">题在这里</a></p>
+<h2 id="T1-1"><a href="#T1-1" class="headerlink" title="T1"></a>T1</h2><p>猜结论可以猜到就是逆序对数量</p>
+<h2 id="T2-1"><a href="#T2-1" class="headerlink" title="T2"></a>T2</h2><p>大概就是做一个DP，记录$f_{i,j,s}$，$s$表示其他桌子的状态。$s$记录大小关系。然后不会了233</p>
+<h2 id="T3-1"><a href="#T3-1" class="headerlink" title="T3"></a>T3</h2><p>可以交换Trie的左右儿子，于是做一个小DP，bitset优化。</p>
+<h2 id="T4-1"><a href="#T4-1" class="headerlink" title="T4"></a>T4</h2><p>做一个暴力大DP：$f_{i,j}$表示$i$点颜色$j$，转移显然。发现很多$j$的答案都是一样的，记录被钦定ban掉的颜色集合即可。然后做一个线段树合并。</p>
+<h2 id="T5-1"><a href="#T5-1" class="headerlink" title="T5"></a>T5</h2><p>咕咕</p>
+<h2 id="T6-1"><a href="#T6-1" class="headerlink" title="T6"></a>T6</h2><p>咕咕</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/16/thuwc-sc-%E4%B9%B1%E5%81%9A/" rel="prev" title="THUWC/SC 乱做">
+                  <i class="fa fa-chevron-left"></i> THUWC/SC 乱做
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/18/apio2016%E5%88%92%E8%89%87-%E7%A6%BB%E6%95%A3%E5%8C%96dp/" rel="next" title="APIO2016划艇 离散化DP">
+                  APIO2016划艇 离散化DP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

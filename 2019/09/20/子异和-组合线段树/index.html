@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="子异和 分别考虑每一位对答案的贡献。假设第$i$位有$n$个数，$m$个$1$。贡献为： $$\sum_{2 \mid i, 1 \leq i \leq n} \binom{m}{i} 2^{n-m} 2^i &#x3D; 2^{n-1}2^i $$ 这是一个好的性质，它告诉我们，答案与$1$的个数无关。 用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="子异和 组合线段树">
+<meta property="og:url" content="http://oi.baka.online/2019/09/20/%E5%AD%90%E5%BC%82%E5%92%8C-%E7%BB%84%E5%90%88%E7%BA%BF%E6%AE%B5%E6%A0%91/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="子异和 分别考虑每一位对答案的贡献。假设第$i$位有$n$个数，$m$个$1$。贡献为： $$\sum_{2 \mid i, 1 \leq i \leq n} \binom{m}{i} 2^{n-m} 2^i &#x3D; 2^{n-1}2^i $$ 这是一个好的性质，它告诉我们，答案与$1$的个数无关。 用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-20T15:10:11.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.500Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/09/20/%E5%AD%90%E5%BC%82%E5%92%8C-%E7%BB%84%E5%90%88%E7%BA%BF%E6%AE%B5%E6%A0%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;09&#x2F;20&#x2F;%E5%AD%90%E5%BC%82%E5%92%8C-%E7%BB%84%E5%90%88%E7%BA%BF%E6%AE%B5%E6%A0%91&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;09&#x2F;20&#x2F;子异和-组合线段树&#x2F;&quot;,&quot;title&quot;:&quot;子异和 组合线段树&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>子异和 组合线段树 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/09/20/%E5%AD%90%E5%BC%82%E5%92%8C-%E7%BB%84%E5%90%88%E7%BA%BF%E6%AE%B5%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          子异和 组合线段树
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-20 23:10:11" itemprop="dateCreated datePublished" datetime="2019-09-20T23:10:11+08:00">2019-09-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5127">子异和</a> 分别考虑每一位对答案的贡献。假设第$i$位有$n$个数，$m$个$1$。贡献为： $$\sum_{2 \mid i, 1 \leq i \leq n} \binom{m}{i} 2^{n-m} 2^i = 2^{n-1}2^i $$ 这是一个好的性质，它告诉我们，答案与$1$的个数无关。 用线段树维护区间$or$值。然而，区间$or$并不能直接$xor$，需要维护额外信息。 考虑维护区间$0,1$分别有多少个。可以发现多少个不重要，我们只关心存在与否。进一步的，可以通过维护$and,or$两个值进行求解。 讨论进行更新。如果某一位$xor$的是$0$，显然不影响。$or,and$的关系，有$(0,0),(1,0),(1,1)$三种。简单计算后可以发现，新的$and,or$分别是原来的两个值取反后，$and,or$的结果。 使用树剖+线段树即可，LCT也可以。事实证明，理论复杂度更优的LCT跑的更慢。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">rd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">0</span>; <span class="keyword">char</span> c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) a = c == <span class="string">&#x27;-&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) b = b * <span class="number">10</span> + c - <span class="string">&#x27;0&#x27;</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> a ? b : -b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">200000</span> + <span class="number">2333</span>, P = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">fpow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ( ; y; y &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>)</span><br><span class="line">            ret = (<span class="keyword">long</span> <span class="keyword">long</span>)ret * x % P;</span><br><span class="line">        x = (<span class="keyword">long</span> <span class="keyword">long</span>)x * x % P;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, val[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, nxt;</span><br><span class="line">&#125; g[N * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], tot;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    g[++tot].to = y, g[tot].nxt = head[x],</span><br><span class="line">    head[x] = tot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fa[N], son[N], size[N], wt[N], num, dep[N], id[N], top[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> fat)</span> </span>&#123;</span><br><span class="line">    fa[x] = fat; dep[x] = dep[fat] + <span class="number">1</span>; size[x] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[x]; i; i = g[i].nxt) &#123;</span><br><span class="line">        <span class="keyword">int</span> y = g[i].to;</span><br><span class="line">        <span class="keyword">if</span> (y != fat) &#123;</span><br><span class="line">            <span class="built_in">dfs1</span>(y, x);</span><br><span class="line">            <span class="keyword">if</span> (size[son[x]] &lt; size[y])</span><br><span class="line">                son[x] = y;</span><br><span class="line">            size[x] += size[y];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> topf)</span> </span>&#123;</span><br><span class="line">    top[x] = topf; id[x] = ++num; wt[num] = val[x];</span><br><span class="line">    <span class="keyword">if</span> (!son[x]) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">dfs2</span>(son[x], topf);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[x]; i; i = g[i].nxt) &#123;</span><br><span class="line">        <span class="keyword">int</span> y = g[i].to;</span><br><span class="line">        <span class="keyword">if</span> (y != fa[x] &amp;&amp; y != son[x])</span><br><span class="line">            <span class="built_in">dfs2</span>(y, y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SegTree</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> val_and, val_or, tag;</span><br><span class="line">&#125; t[N * <span class="number">4</span>];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ls(p) p &lt;&lt; 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rs(p) p &lt;&lt; 1  1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    t[p].val_and = t[<span class="built_in">ls</span>(p)].val_and &amp; t[<span class="built_in">rs</span>(p)].val_and;</span><br><span class="line">    t[p].val_or = t[<span class="built_in">ls</span>(p)].val_or  t[<span class="built_in">rs</span>(p)].val_or;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">unsigned</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> x = t[p].val_and, y = t[p].val_or;</span><br><span class="line">    t[p].val_and = (x ^ v) &amp; (y ^ v);</span><br><span class="line">    t[p].val_or = (x ^ v)  (y ^ v);</span><br><span class="line">    t[p].tag ^= v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (t[p].tag) &#123;</span><br><span class="line">        <span class="built_in">push</span>(<span class="built_in">ls</span>(p), t[p].tag);</span><br><span class="line">        <span class="built_in">push</span>(<span class="built_in">rs</span>(p), t[p].tag);</span><br><span class="line">        t[p].tag = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">        t[p].val_and = t[p].val_or = wt[l];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">build</span>(<span class="built_in">ls</span>(p), l, mid);</span><br><span class="line">    <span class="built_in">build</span>(<span class="built_in">rs</span>(p), mid + <span class="number">1</span>, r);</span><br><span class="line">    <span class="built_in">pushup</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">unsigned</span> v, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l &lt;= L &amp;&amp; r &gt;= R) &#123;</span><br><span class="line">        <span class="built_in">push</span>(p, v);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">pushdown</span>(p);</span><br><span class="line">    <span class="keyword">int</span> mid = (L + R) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (l &lt;= mid)</span><br><span class="line">        <span class="built_in">change</span>(<span class="built_in">ls</span>(p), l, r, v, L, mid);</span><br><span class="line">    <span class="keyword">if</span> (r &gt; mid)</span><br><span class="line">        <span class="built_in">change</span>(<span class="built_in">rs</span>(p), l, r, v, mid + <span class="number">1</span>, R);</span><br><span class="line">    <span class="built_in">pushup</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l &lt;= L &amp;&amp; r &gt;= R) </span><br><span class="line">        <span class="keyword">return</span> t[p].val_or;</span><br><span class="line">    <span class="built_in">pushdown</span>(p);</span><br><span class="line">    <span class="keyword">int</span> mid = (L + R) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (l &lt;= mid)</span><br><span class="line">        ret = <span class="built_in">query</span>(<span class="built_in">ls</span>(p), l, r, L, mid);</span><br><span class="line">    <span class="keyword">if</span> (r &gt; mid)</span><br><span class="line">        ret = <span class="built_in">query</span>(<span class="built_in">rs</span>(p), l, r, mid + <span class="number">1</span>, R);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">range_change</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (top[x] != top[y]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dep[top[x]] &lt; dep[top[y]])</span><br><span class="line">            std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">        <span class="built_in">change</span>(<span class="number">1</span>, id[top[x]], id[x], v, <span class="number">1</span>, n);</span><br><span class="line">        x = fa[top[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dep[x] &gt; dep[y])</span><br><span class="line">        std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">    <span class="built_in">change</span>(<span class="number">1</span>, id[x], id[y], v, <span class="number">1</span>, n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">range_query</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> val = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (top[x] != top[y]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dep[top[x]] &lt; dep[top[y]])</span><br><span class="line">            std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">        val = <span class="built_in">query</span>(<span class="number">1</span>, id[top[x]], id[x], <span class="number">1</span>, n);</span><br><span class="line">        cnt += dep[x] - dep[top[x]] + <span class="number">1</span>;</span><br><span class="line">        x = fa[top[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dep[x] &gt; dep[y])</span><br><span class="line">        std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">    val = <span class="built_in">query</span>(<span class="number">1</span>, id[x], id[y], <span class="number">1</span>, n);</span><br><span class="line">    cnt += dep[y] - dep[x] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)val * <span class="built_in">fpow</span>(<span class="number">2</span>, cnt - <span class="number">1</span>) % P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// freopen(&quot;data.txt&quot;, &quot;r&quot;, stdin);</span></span><br><span class="line">    n = <span class="built_in">rd</span>(), m = <span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="built_in">rd</span>(), y = <span class="built_in">rd</span>();</span><br><span class="line">        <span class="built_in">addedge</span>(x, y);</span><br><span class="line">        <span class="built_in">addedge</span>(y, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        val[i] = <span class="built_in">rd</span>();</span><br><span class="line">    <span class="built_in">dfs1</span>(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">dfs2</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">build</span>(<span class="number">1</span>, <span class="number">1</span>, n);</span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> op = <span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = <span class="built_in">rd</span>(), y = <span class="built_in">rd</span>();</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, <span class="built_in">range_query</span>(x, y));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> x = <span class="built_in">rd</span>(), y = <span class="built_in">rd</span>(), z = <span class="built_in">rd</span>();</span><br><span class="line">            <span class="built_in">range_change</span>(x, y, z);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/20/scp-s%E6%A8%A1%E6%8B%9F%E6%B5%8B%E8%AF%9547-%E9%A2%98%E8%A7%A3/" rel="prev" title="SCP-S模拟测试47 题解">
+                  <i class="fa fa-chevron-left"></i> SCP-S模拟测试47 题解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/20/%E4%B8%89%E5%85%83%E7%8E%AF-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="三元环 学习笔记">
+                  三元环 学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

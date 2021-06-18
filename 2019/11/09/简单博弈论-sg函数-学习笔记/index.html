@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="昨日膜你赛考了SG函数 发现一道题都没写过所以也没想到 大惊 赶快补习一下…     Nim游戏 估计全世界博弈论都是第一个学的Nim游戏… Nim游戏就是给定$n$堆物品,$i$堆有$A_i$个,每个人可以选一堆拿任意多,没的取的输. 做法是,先手必胜, $$\oplus_{i&#x3D;1}^n A_i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单博弈论 | SG函数 学习笔记">
+<meta property="og:url" content="http://oi.baka.online/2019/11/09/%E7%AE%80%E5%8D%95%E5%8D%9A%E5%BC%88%E8%AE%BA-sg%E5%87%BD%E6%95%B0-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="昨日膜你赛考了SG函数 发现一道题都没写过所以也没想到 大惊 赶快补习一下…     Nim游戏 估计全世界博弈论都是第一个学的Nim游戏… Nim游戏就是给定$n$堆物品,$i$堆有$A_i$个,每个人可以选一堆拿任意多,没的取的输. 做法是,先手必胜, $$\oplus_{i&#x3D;1}^n A_i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-09T08:03:07.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.586Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/11/09/%E7%AE%80%E5%8D%95%E5%8D%9A%E5%BC%88%E8%AE%BA-sg%E5%87%BD%E6%95%B0-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;11&#x2F;09&#x2F;%E7%AE%80%E5%8D%95%E5%8D%9A%E5%BC%88%E8%AE%BA-sg%E5%87%BD%E6%95%B0-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;11&#x2F;09&#x2F;简单博弈论-sg函数-学习笔记&#x2F;&quot;,&quot;title&quot;:&quot;简单博弈论 | SG函数 学习笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>简单博弈论 | SG函数 学习笔记 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nim%E6%B8%B8%E6%88%8F"><span class="nav-number">1.</span> <span class="nav-text">Nim游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">简单证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nim-k%E6%B8%B8%E6%88%8F"><span class="nav-number">2.</span> <span class="nav-text">Nim-k游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B6%E6%A2%AFNim%E6%B8%B8%E6%88%8F"><span class="nav-number">3.</span> <span class="nav-text">阶梯Nim游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8DNim%E6%B8%B8%E6%88%8F"><span class="nav-number">4.</span> <span class="nav-text">反Nim游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sprague-Grundy%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">Sprague-Grundy函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E-1"><span class="nav-number">5.1.</span> <span class="nav-text">简单证明:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sprague-Grundy%E5%AE%9A%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">Sprague-Grundy定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E7%9A%84%E5%92%8C"><span class="nav-number">6.1.</span> <span class="nav-text">游戏的和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E-2"><span class="nav-number">6.2.</span> <span class="nav-text">简单证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SG%E5%87%BD%E6%95%B0%E4%B8%8ENim%E6%B8%B8%E6%88%8F"><span class="nav-number">7.</span> <span class="nav-text">SG函数与Nim游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8DSG%E5%87%BD%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">反SG函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98"><span class="nav-number">9.</span> <span class="nav-text">其他博弈问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash%E5%8D%9A%E5%BC%88"><span class="nav-number">10.</span> <span class="nav-text">Bash博弈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E-3"><span class="nav-number">10.1.</span> <span class="nav-text">简单证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wythoff%E5%8D%9A%E5%BC%88"><span class="nav-number">11.</span> <span class="nav-text">Wythoff博弈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E4%B8%8A%E5%88%A0%E8%BE%B9%E6%B8%B8%E6%88%8F"><span class="nav-number">12.</span> <span class="nav-text">树上删边游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE%E5%88%A0%E8%BE%B9%E6%B8%B8%E6%88%8F"><span class="nav-number">13.</span> <span class="nav-text">无向图删边游戏</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/11/09/%E7%AE%80%E5%8D%95%E5%8D%9A%E5%BC%88%E8%AE%BA-sg%E5%87%BD%E6%95%B0-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          简单博弈论 | SG函数 学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-09 16:03:07" itemprop="dateCreated datePublished" datetime="2019-11-09T16:03:07+08:00">2019-11-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>昨日膜你赛考了SG函数 发现一道题都没写过所以也没想到 大惊 赶快补习一下…</p>
+<hr>
+<h3 id="Nim游戏"><a href="#Nim游戏" class="headerlink" title="Nim游戏"></a>Nim游戏</h3><p>估计全世界博弈论都是第一个学的Nim游戏… Nim游戏就是给定$n$堆物品,$i$堆有$A_i$个,每个人可以选一堆拿任意多,没的取的输. 做法是,先手必胜, $$\oplus_{i=1}^n A_i \neq 0$$</p>
+<h4 id="简单证明"><a href="#简单证明" class="headerlink" title="简单证明"></a>简单证明</h4><p>如果xor和不为$0$,设最高二进制不为$0$位为$k$,肯定有一个数,$k$位为$1$,那么我们可以取走一些使得它变成$0$. 对于对手一个使得xor不为$0$的操作,显然可以用上述办法消除影响,因此必败 貌似这个操作叫Nim和的说</p>
+<h3 id="Nim-k游戏"><a href="#Nim-k游戏" class="headerlink" title="Nim-k游戏"></a>Nim-k游戏</h3><p>就是可以取$k$堆.推广xor运算为$\mod (k+1)$的即可</p>
+<h3 id="阶梯Nim游戏"><a href="#阶梯Nim游戏" class="headerlink" title="阶梯Nim游戏"></a>阶梯Nim游戏</h3><p>挑选一个位置$i$,任选个数移到$i-1$ 如果一个人把一个位置上的移动了,另一个人可以把那些再前移,所以等价于在奇数位置玩Nim游戏</p>
+<h3 id="反Nim游戏"><a href="#反Nim游戏" class="headerlink" title="反Nim游戏"></a>反Nim游戏</h3><p>取走最后一个的人输 必胜要求满足以下条件之一: 存在一堆个数$&gt; 1$,xor不为$0$ 每一堆个数都是$1$,xor为$0$</p>
+<hr>
+<h3 id="Sprague-Grundy函数"><a href="#Sprague-Grundy函数" class="headerlink" title="Sprague-Grundy函数"></a>Sprague-Grundy函数</h3><p>$$SG(x) = {\rm mex}_y \lbrace SG(y) \rbrace$$ 其中$y$是有向图游戏中$x$可以到达的状态 必胜SG函数$&gt;0$,否则必败</p>
+<h4 id="简单证明-1"><a href="#简单证明-1" class="headerlink" title="简单证明:"></a>简单证明:</h4><p>归纳法. 最终状态为$0$ 如果存在必胜态,那么必有后继必败,$SG$必不为$0$ 反之亦然</p>
+<h3 id="Sprague-Grundy定理"><a href="#Sprague-Grundy定理" class="headerlink" title="Sprague-Grundy定理"></a>Sprague-Grundy定理</h3><h4 id="游戏的和"><a href="#游戏的和" class="headerlink" title="游戏的和"></a>游戏的和</h4><p>存在有向图游戏$G_i$,定义$G$是任选某个$G_i$并且行动的有向图游戏,那么有 $$SG(G) = \oplus_{i=1}^n SG(G_i)$$</p>
+<h4 id="简单证明-2"><a href="#简单证明-2" class="headerlink" title="简单证明"></a>简单证明</h4><p>其实和Nim游戏证明差不多…</p>
+<h3 id="SG函数与Nim游戏"><a href="#SG函数与Nim游戏" class="headerlink" title="SG函数与Nim游戏"></a>SG函数与Nim游戏</h3><p>我们考虑用SG函数处理Nim游戏.每一堆都是一个有向图游戏,石子数量正好等于SG函数值. 完 全 一 致</p>
+<h3 id="反SG函数"><a href="#反SG函数" class="headerlink" title="反SG函数"></a>反SG函数</h3><p>就是反Nim游戏那个东西,规则也一样</p>
+<hr>
+<h3 id="其他博弈问题"><a href="#其他博弈问题" class="headerlink" title="其他博弈问题"></a>其他博弈问题</h3><p>这部分证明大部分先咕了…</p>
+<h3 id="Bash博弈"><a href="#Bash博弈" class="headerlink" title="Bash博弈"></a>Bash博弈</h3><p>一堆$n$个物品,每次取$[1,m]$个 取光胜必败条件: $n \mod (m+1) = 0$,归纳可</p>
+<h4 id="简单证明-3"><a href="#简单证明-3" class="headerlink" title="简单证明"></a>简单证明</h4><p>很简单,一定存在方案使得两个人各取一次,$sum = m +1$</p>
+<h3 id="Wythoff博弈"><a href="#Wythoff博弈" class="headerlink" title="Wythoff博弈"></a>Wythoff博弈</h3><p>我是鸽王</p>
+<h3 id="树上删边游戏"><a href="#树上删边游戏" class="headerlink" title="树上删边游戏"></a>树上删边游戏</h3><p>$$SG(leaf) = 0$$ $$SG(x) = \oplus (SG(y)+1)$$</p>
+<h3 id="无向图删边游戏"><a href="#无向图删边游戏" class="headerlink" title="无向图删边游戏"></a>无向图删边游戏</h3><p>“将图中的任意一个偶环缩成一个新点，任意一个奇环缩成一个新点加一个新边；所有连到原先环上的边全部改为与新点相连。这样的改动不会影响图的SG 值。”</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/08/cf1028g-guess-the-number-dp%E4%BA%A4%E4%BA%92/" rel="prev" title="CF1028G Guess the number DP交互">
+                  <i class="fa fa-chevron-left"></i> CF1028G Guess the number DP交互
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/10/cerc2016%E4%BA%8C%E5%88%86%E6%AF%AF-bipartite-blanket-hall%E5%AE%9A%E7%90%86%E7%8A%B6%E5%8E%8B/" rel="next" title="CERC2016二分毯 Bipartite Blanket Hall定理状压">
+                  CERC2016二分毯 Bipartite Blanket Hall定理状压 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

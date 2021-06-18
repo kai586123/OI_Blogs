@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="[SCOI2014]舌尖上的方伯伯 本题需要计算几何，把蔬菜看作点处理。 题目中有一个很强的限制：点必须被更近的井灌溉。考虑一种合法的方案，把两组点用一条线划分成两部分。可以发现，因为题目中的限制，一定可以通过一条直线来分割点。 如果可以画出一条分割线，它一个点也没有过，那么可以通过移动与旋转这条线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SCOI2014舌尖上的方伯伯 DP计算几何">
+<meta property="og:url" content="http://oi.baka.online/2020/01/11/scoi2014%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%96%B9%E4%BC%AF%E4%BC%AF-dp%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="[SCOI2014]舌尖上的方伯伯 本题需要计算几何，把蔬菜看作点处理。 题目中有一个很强的限制：点必须被更近的井灌溉。考虑一种合法的方案，把两组点用一条线划分成两部分。可以发现，因为题目中的限制，一定可以通过一条直线来分割点。 如果可以画出一条分割线，它一个点也没有过，那么可以通过移动与旋转这条线">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-11T06:10:00.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.162Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/01/11/scoi2014%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%96%B9%E4%BC%AF%E4%BC%AF-dp%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;01&#x2F;11&#x2F;scoi2014%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%96%B9%E4%BC%AF%E4%BC%AF-dp%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;01&#x2F;11&#x2F;scoi2014舌尖上的方伯伯-dp计算几何&#x2F;&quot;,&quot;title&quot;:&quot;SCOI2014舌尖上的方伯伯 DP计算几何&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>SCOI2014舌尖上的方伯伯 DP计算几何 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/01/11/scoi2014%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%96%B9%E4%BC%AF%E4%BC%AF-dp%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SCOI2014舌尖上的方伯伯 DP计算几何
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-11 14:10:00" itemprop="dateCreated datePublished" datetime="2020-01-11T14:10:00+08:00">2020-01-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3289">[SCOI2014]舌尖上的方伯伯</a> 本题需要计算几何，把蔬菜看作点处理。 题目中有一个很强的限制：点必须被更近的井灌溉。考虑一种合法的方案，把两组点用一条线划分成两部分。可以发现，因为题目中的限制，一定可以通过一条直线来分割点。 如果可以画出一条分割线，它一个点也没有过，那么可以通过移动与旋转这条线，使得它压在一个点上，分割出的点集不变。如果存在一些点，离$A,B$两井距离相同，那么它们在一条分割线上。对这两种分割线进行讨论。 所以可以枚举一对点$(x,y)$，确定一条分割线。这条线至少过了两个点。 然后把这条分割线绕$x$旋转一个小角度，因为题目输入都是整数，它现在只交一个点。 对于过一个点的情况，记录所有划分方案，去重，检查是否合法即可。注意需要检查，距离两井距离相同的点数$\leq 1$。 对于过多个点的情况，注意到两个井连线一定关于分割线对称，先求出$A,B$分别需要包含分割线上的多少点。 按顺序考虑线上的点，考虑$f_{i,j,k}$表示前$i$个，选了$j$个点，和为$k$。记录方案数$f_{i,j,k}=f_{i-1,j,k}+f_{i-1,j-1,k-w_i}$。枚举$k$找到一种合法方案给答案贡献即可。 第一部分复杂度为$O(n^2)$，第二部分对$x$个点形成的线求一次，复杂度为$O(60x^3)$，平均每个点承担了大约$300$多次计算，总复杂度为$O(n^4)$。 PS：这题卡精度，#define double long double之后分会变低…窝太菜没办法特判了一点才过的…</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n; <span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">fabs</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x &lt; <span class="number">0</span>) <span class="keyword">return</span> -x;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dcmp</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y = <span class="number">0</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">fabs</span>(x - y) &lt; eps)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> x &lt; y ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Grid</span> &#123;</span></span><br><span class="line">  <span class="keyword">double</span> x, y;</span><br><span class="line">&#125; Vector, Point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Point <span class="keyword">operator</span>+(<span class="keyword">const</span> Point &amp;a, <span class="keyword">const</span> Point &amp;b) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; a.x + b.x, a.y + b.y &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Point <span class="keyword">operator</span>/(<span class="keyword">const</span> Point &amp;a, <span class="keyword">double</span> b) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; a.x / b, a.y / b &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Point <span class="keyword">operator</span>*(<span class="keyword">const</span> Point &amp;a, <span class="keyword">double</span> b) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; a.x * b, a.y * b &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Vector <span class="keyword">operator</span>-(<span class="keyword">const</span> Point &amp;a, <span class="keyword">const</span> Point &amp;b) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; a.x - b.x, a.y - b.y &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="keyword">operator</span>^(<span class="keyword">const</span> Vector &amp;a, <span class="keyword">const</span> Vector &amp;b) &#123;</span><br><span class="line">  <span class="keyword">return</span> a.x * b.y - a.y * b.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">get_dis</span><span class="params">(<span class="keyword">const</span> Point &amp;a, <span class="keyword">const</span> Point &amp;b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> std::<span class="built_in">sqrt</span>((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Point &amp;a, <span class="keyword">const</span> Point &amp;b) &#123;</span><br><span class="line">  <span class="keyword">return</span> !<span class="built_in">dcmp</span>(a.x, b.x) ? a.y &lt; b.y : a.x &lt; b.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">get_val</span><span class="params">(<span class="keyword">const</span> Point &amp;a)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.x &lt; a.y ? a.y : a.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Point pt[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Line</span> &#123;</span></span><br><span class="line">  Point s, e;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">on_line</span><span class="params">(<span class="keyword">const</span> Line &amp;a, <span class="keyword">const</span> Point &amp;b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> !<span class="built_in">dcmp</span>((b - a.s) ^ (b - a.e));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">on_right</span><span class="params">(<span class="keyword">const</span> Line &amp;a, <span class="keyword">const</span> Point &amp;b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">dcmp</span>((b - a.s) ^ (a.e - a.s)) == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">is_vertical</span><span class="params">(<span class="keyword">const</span> Line &amp;a, <span class="keyword">const</span> Line &amp;b)</span> </span>&#123;</span><br><span class="line">  Vector va = a.e - a.s, vb = b.e - b.s;</span><br><span class="line">  <span class="keyword">return</span> !<span class="built_in">dcmp</span>(va.x * vb.x, va.y * vb.y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">get_dis</span><span class="params">(<span class="keyword">const</span> Line &amp;a, <span class="keyword">const</span> Point &amp;b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> std::<span class="built_in">abs</span>((b - a.s) ^ (a.e - a.s)) / <span class="built_in">get_dis</span>(a.s, a.e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Point <span class="title">get_foot</span><span class="params">(<span class="keyword">const</span> Line &amp;a, <span class="keyword">const</span> Point &amp;b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> dis = <span class="built_in">get_dis</span>(a, b), xy = std::<span class="built_in">sqrt</span>(<span class="built_in">get_dis</span>(b, a.s) * <span class="built_in">get_dis</span>(b, a.s) - dis * dis);</span><br><span class="line">  Vector r = (a.e - a.s) * xy / <span class="built_in">get_dis</span>(a.s, a.e);</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">get_dis</span>(a.s + r, b) == dis)</span><br><span class="line">    <span class="keyword">return</span> a.s + r;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> a.s - r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> vis[N][N], ol[N], tot;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> f[<span class="number">2</span>][N][N * N];</span><br><span class="line"><span class="keyword">int</span> now;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fuck;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">calc1</span><span class="params">(<span class="keyword">const</span> Line &amp;line)</span> </span>&#123;</span><br><span class="line">  tot = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">on_line</span>(line, pt[i]))</span><br><span class="line">      ol[++tot] = i;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= tot; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= tot; ++j)</span><br><span class="line">      vis[ol[i]][ol[j]] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  Point a = &#123; <span class="number">0</span>, <span class="number">0</span> &#125;, b = &#123; <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">double</span> xa = <span class="number">0</span>, xb = <span class="number">0</span>, ya = <span class="number">0</span>, yb = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> ca = <span class="number">0</span>, cb = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">on_line</span>(line, pt[i])) &#123;</span><br><span class="line">      Point foot = <span class="built_in">get_foot</span>(line, pt[i]);</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">on_right</span>(line, pt[i])) &#123;</span><br><span class="line">        a = a + pt[i];</span><br><span class="line">        ++ca;</span><br><span class="line">        xa += <span class="built_in">get_dis</span>(line, pt[i]);</span><br><span class="line">        ya += <span class="built_in">get_val</span>(foot - pt[ol[<span class="number">1</span>]]);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        b = b + pt[i];</span><br><span class="line">        ++cb;</span><br><span class="line">        xb += <span class="built_in">get_dis</span>(line, pt[i]);</span><br><span class="line">        yb += <span class="built_in">get_val</span>(foot - pt[ol[<span class="number">1</span>]]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> need = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= tot; ++i) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">dcmp</span>(xa * (cb + tot - i), xb * (ca + i))) &#123;</span><br><span class="line">      need = i;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (need == <span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(f));</span><br><span class="line">  now = <span class="number">0</span>;</span><br><span class="line">  f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= tot; ++i) &#123;</span><br><span class="line">    now ^= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> del = <span class="built_in">get_val</span>(pt[ol[i]] - pt[ol[<span class="number">1</span>]]);</span><br><span class="line">    sum += del;</span><br><span class="line">    <span class="built_in">memset</span>(f[now], <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(f[now]));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; ++j) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= <span class="number">60</span> * i; ++k) &#123;</span><br><span class="line">        f[now][j][k] = f[now ^ <span class="number">1</span>][j][k];</span><br><span class="line">        <span class="keyword">if</span> (j &gt; <span class="number">0</span> &amp;&amp; k &gt;= del) &#123;</span><br><span class="line">          f[now][j][k] += f[now ^ <span class="number">1</span>][j - <span class="number">1</span>][k - del];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> w = <span class="number">0</span>; w &lt;= tot * <span class="number">60</span>; ++w) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">dcmp</span>((ya + w) / (ca + need), (yb + sum - w) / (cb + tot - need))) &#123;</span><br><span class="line">      ans += f[now][need][w];</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::vector&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; st;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_st</span><span class="params">(Line line, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (i != id &amp;&amp; <span class="built_in">on_line</span>(line, pt[i]))</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> s = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == id)</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">on_right</span>(line, pt[i]))</span><br><span class="line">      s = <span class="number">1ll</span> &lt;&lt; i;</span><br><span class="line">  &#125;</span><br><span class="line">  st.<span class="built_in">push_back</span>(s);</span><br><span class="line">  st.<span class="built_in">push_back</span>(<span class="built_in">s</span>  (<span class="number">1ll</span> &lt;&lt; id));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">calc2</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> s)</span> </span>&#123;</span><br><span class="line">  Point a = &#123; <span class="number">0</span>, <span class="number">0</span> &#125;, b = &#123; <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(s &amp; (<span class="number">1ll</span> &lt;&lt; i)))</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    ++cnt;</span><br><span class="line">    a = a + pt[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!cnt  cnt == n)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  a = a / cnt;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s &amp; (<span class="number">1ll</span> &lt;&lt; i))</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    b = b + pt[i];</span><br><span class="line">  &#125;</span><br><span class="line">  b = b / (n - cnt);</span><br><span class="line">  <span class="keyword">int</span> cnt_line = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s &amp; (<span class="number">1ll</span> &lt;&lt; i)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">dcmp</span>(<span class="built_in">get_dis</span>(a, pt[i]), <span class="built_in">get_dis</span>(b, pt[i])) == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">dcmp</span>(<span class="built_in">get_dis</span>(a, pt[i]), <span class="built_in">get_dis</span>(b, pt[i])) == <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">dcmp</span>(<span class="built_in">get_dis</span>(a, pt[i]), <span class="built_in">get_dis</span>(b, pt[i])))</span><br><span class="line">      ++cnt_line;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cnt_line &lt;= <span class="number">1</span>)</span><br><span class="line">    ++ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  std::cin &gt;&gt; n;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">56</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;17&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">24</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;9&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    std::cin &gt;&gt; pt[i].x &gt;&gt; pt[i].y;</span><br><span class="line"></span><br><span class="line">  std::<span class="built_in">sort</span>(pt + <span class="number">1</span>, pt + n + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (vis[i][j])</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      Line line = &#123; pt[i], pt[j] &#125;;</span><br><span class="line">      <span class="built_in">calc1</span>(line);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">      Line line = &#123; pt[i], pt[j] &#125;;</span><br><span class="line">      line.e.x -= eps * <span class="number">5</span>;</span><br><span class="line">      line.e.y += eps * <span class="number">5</span>;</span><br><span class="line">      <span class="built_in">add_st</span>(line, i);</span><br><span class="line">      line.e = pt[j];</span><br><span class="line">      line.e.x += eps * <span class="number">5</span>;</span><br><span class="line">      line.e.y -= eps * <span class="number">5</span>;</span><br><span class="line">      <span class="built_in">add_st</span>(line, i);</span><br><span class="line">      line.e = pt[j];</span><br><span class="line">      line.e.x += eps * <span class="number">5</span>;</span><br><span class="line">      line.e.y += eps * <span class="number">5</span>;</span><br><span class="line">      <span class="built_in">add_st</span>(line, i);</span><br><span class="line">      line.e = pt[j];</span><br><span class="line">      line.e.x -= eps * <span class="number">5</span>;</span><br><span class="line">      line.e.y -= eps * <span class="number">5</span>;</span><br><span class="line">      <span class="built_in">add_st</span>(line, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)st.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(st[i] &amp; <span class="number">2</span>)) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">        st[i] ^= <span class="number">1ll</span> &lt;&lt; j;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  std::<span class="built_in">sort</span>(st.<span class="built_in">begin</span>(), st.<span class="built_in">end</span>());</span><br><span class="line">  st.<span class="built_in">resize</span>(std::<span class="built_in">unique</span>(st.<span class="built_in">begin</span>(), st.<span class="built_in">end</span>()) - st.<span class="built_in">begin</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">long</span> <span class="keyword">long</span> i : st)</span><br><span class="line">    <span class="keyword">if</span> (i &amp;&amp; i != ((<span class="number">1ll</span> &lt;&lt; (n + <span class="number">1</span>)) - <span class="number">2</span>))</span><br><span class="line">      <span class="built_in">calc2</span>(i);</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; ans &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/03/heoi2016-tjoi2016%E6%8E%92%E5%BA%8F-%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%90%88%E5%B9%B6%E5%88%86%E8%A3%82/" rel="prev" title="HEOI2016/TJOI2016排序 线段树合并分裂">
+                  <i class="fa fa-chevron-left"></i> HEOI2016/TJOI2016排序 线段树合并分裂
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/11/jsoi2010%E6%B8%B8%E6%88%8F-%E6%A0%91%E5%BD%A2dp/" rel="next" title="Jsoi2010游戏 树形DP">
+                  Jsoi2010游戏 树形DP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

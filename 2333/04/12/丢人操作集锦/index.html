@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1.  打错freopen，不删freopen，OJ交题不删调试什么的。  2.  INF &#x3D; 1 &lt; 30，memset了0x3f，最短路，导致奇怪的bug。  3.  网络流板子打错，因为网络流的玄学性，错板子过了题结果一直错着。  4.  莫队忘记给每个位置标记在哪个块就去排序…TLE。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="退役操作集锦">
+<meta property="og:url" content="http://oi.baka.online/2333/04/12/%E4%B8%A2%E4%BA%BA%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="1.  打错freopen，不删freopen，OJ交题不删调试什么的。  2.  INF &#x3D; 1 &lt; 30，memset了0x3f，最短路，导致奇怪的bug。  3.  网络流板子打错，因为网络流的玄学性，错板子过了题结果一直错着。  4.  莫队忘记给每个位置标记在哪个块就去排序…TLE。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2333-04-12T07:14:17.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:58:52.993Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2333/04/12/%E4%B8%A2%E4%BA%BA%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2333&#x2F;04&#x2F;12&#x2F;%E4%B8%A2%E4%BA%BA%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6&#x2F;&quot;,&quot;path&quot;:&quot;2333&#x2F;04&#x2F;12&#x2F;丢人操作集锦&#x2F;&quot;,&quot;title&quot;:&quot;退役操作集锦&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>退役操作集锦 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2333/04/12/%E4%B8%A2%E4%BA%BA%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          退役操作集锦
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2333-04-12 15:14:17" itemprop="dateCreated datePublished" datetime="2333-04-12T15:14:17+08:00">2333-04-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:58:52" itemprop="dateModified" datetime="2021-06-17T23:58:52+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ol>
+<li>打错freopen，不删freopen，OJ交题不删调试什么的。</li>
+<li>INF = 1 &lt;&lt; 30，memset了0x3f，最短路，导致奇怪的bug。</li>
+<li>网络流板子打错，因为网络流的玄学性，错板子过了题结果一直错着。</li>
+<li>莫队忘记给每个位置标记在哪个块就去排序…TLE。</li>
+<li>node.x 和 x 分不清。变量名字不重复最好。</li>
+<li>n和m范围不一样挂掉（这个太多了…）</li>
+<li>答案int范围，过程中爆了int，不开long long见祖宗 还有不取膜爆long long的！！！！</li>
+<li>位运算不加括号。</li>
+<li>任何图论题没有特殊说明一定考虑不连通的情况！！！</li>
+<li>压行，把循环里那玩意写成了注释掉的东西，成功挂掉。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="built_in">rd</span>(), y = <span class="built_in">rd</span>();</span><br><span class="line">    a[i] = y - d[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a[i] = -(d[rd()] - rd());</span></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>求阶乘逆元的时候不求0!的</li>
+<li>对于每次操作都需要用新空间的题，数组按照操作数开大小，没给初始序列开。<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P5338">[TJOI2019]甲苯先生的滚榜</a>。</li>
+<li>两段差不多的代码，直接粘贴过去用，没改全炸了。</li>
+<li>splay中如果存在多个值一样的点，随便找一个转到根之后，剩下的不全在左子树！！！！！！！</li>
+<li>都知道无向图数组要开二倍，然而，和无向图边有关的数组都要开二倍！！！！！！！！！！！求割边，挂了，有什么好说的…</li>
+<li>函数有个参数是bool，表示类型，传了个int进去，1/-1，GG。</li>
+<li>Splay板子打错两行泪T_T</li>
+<li>这两句不一样！！！FFT的泪水</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ans += A[i].x / lim + <span class="number">0.5</span>;</span><br><span class="line">ans += (<span class="keyword">int</span>)(A[i].x / lim + <span class="number">0.5</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="19">
+<li>线段树不pushdown</li>
+<li>分类讨论不完全。。。直接变最低档暴力分，太丢人了</li>
+<li>不算内存见祖宗，这个已经114514次了…MDZZ</li>
+<li>diff a.out b.out -wZB ！！！！！</li>
+<li>高斯小圆卡顺序：随机化</li>
+<li>算空间算错(指算大感觉MLE不写了)</li>
+<li>欧拉回路 和边有关开二倍</li>
+<li>SAM p,np,q,nq分不清 小数据经常能过</li>
+<li>写FFT，DFT共轭复数，要求j = i ? lim - i : 0。写了j = (L - i) &amp; (L - 1)而不是j = (lim - i) &amp; (lim - 1)调半小时</li>
+<li>FFT，求exp，注意别求Lim求的炸掉边界。。。</li>
+<li>看题不仔细。。。输入是整数yy小数做法 必须选数字yy了不选的做法，etc……….</li>
+<li>[0,n-1]标号的图做dfs，初始fa不能是0。。。。。</li>
+<li>把x,y用一个数存，x * 10 + y，然后x应该是0-9不能是1-10。。。</li>
+<li>结构体里的构造函数，直接调用并没有什么用，会生成新数组，不能用来初始化现在的数组</li>
+<li>极角排序，能用叉积就不要用atan2，被卡爆</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Node &amp;x, <span class="keyword">const</span> Node &amp;y) &#123;</span><br><span class="line">  <span class="keyword">int</span> a = x.dx &lt; <span class="number">0</span>  x.dx == <span class="number">0</span> &amp;&amp; x.dy &lt; <span class="number">0</span>,</span><br><span class="line">    b = y.dx &lt; <span class="number">0</span>  y.dx == <span class="number">0</span> &amp;&amp; y.dy &lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (a != b) <span class="keyword">return</span> a &lt; b;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">cross</span>(x, y) &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="34">
+<li>双指针扫可以绕圈的环形的时候，注意有没有绕圈次数过多（比如第二个指针在第一个指针前面，结果每次判断如果第二个小于第一个就等于第一个这种睿智操作。。。</li>
+<li>使用A[i] != A[i + 1]计数的时候，如果多测，记得单独设置A[n + 1]</li>
+<li>某仙人掌板子题，环上DP，需要两种方向绕环，写的是1-&gt;n与1-&gt;n-&gt;2，第二种算两点距离挂了</li>
+<li>某FFT题，FFT过程中要用到fac[n]，统计答案的时候只用到fac[m]，于是阶乘就没算更大的。。。这个故事告诉我，阶乘这种东西，数组开多大算多大。。。。。。。。</li>
+<li>记一个小Trick：优化两数相加取模的速度：</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x -= P, x += x &gt;&gt; <span class="number">31</span> &amp; P;</span><br></pre></td></tr></table></figure>
+
+<ol start="39">
+<li>当需要维护一条链，要求不在链上的子树的内容，一个优秀的做法是在x维护x父亲去掉x的答案。一个愚蠢的做法是树剖+处理链。。。。后者特别难写。。。</li>
+<li>设计一个单调性类的DP，当点j的意义是f[j-1]+S(j)的时候，别忘了i可以从f[i-1]转移来，也就是要额外用自己算一下自己</li>
+<li>分治FFT，从序列开始选一段，从l开始选一段。注意是要求的那个从l开始选，一开始就有的从0开始选！！</li>
+<li>2SAT直接用线段树式的开点法（2x，2x+1），并封装addedge()一次性加正反边是很优秀的做法。</li>
+<li>关于std::swap的复杂度：</li>
+</ol>
+<blockquote>
+<p>swap 数组是O(数组长度的) swap std::set是O(1)的 在c++11后，所有常用的STL里的都是O(1)</p>
+</blockquote>
+<ol start="44">
+<li>启发式合并维护链并：注意合并的时候，一条一条加入，并且直接计算新的贡献（旧的它死了）</li>
+<li>注意二维前缀和的正确写法……</li>
+<li> 论如何卡启发式合并常数：二叉树</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2332/08/19/noi2020%E9%80%80%E5%BD%B9%E8%AE%B0/" rel="prev" title="NOI2020退役记">
+                  <i class="fa fa-chevron-left"></i> NOI2020退役记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2334/06/17/%E5%85%B3%E4%BA%8E%E6%9C%AC%E5%8D%9A%E5%AE%A2/" rel="next" title="关于本博客">
+                  关于本博客 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

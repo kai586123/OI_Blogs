@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Click here to AK IOI 果然毒瘤场的开题顺序都是231吗。。  T1 神仙题。。来一个不完整证明吧。。。 考虑一个环的情况。对于一个环$a_1,a_2…a_k$，构造集合$\lbrace x \mid x &#x3D; (2^k-1)p+2^{i-1} \rbrace \in S_{a_i}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19.9.14 智商不足模拟赛">
+<meta property="og:url" content="http://oi.baka.online/2019/09/14/19-9-14-%E6%99%BA%E5%95%86%E4%B8%8D%E8%B6%B3%E6%A8%A1%E6%8B%9F%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="Click here to AK IOI 果然毒瘤场的开题顺序都是231吗。。  T1 神仙题。。来一个不完整证明吧。。。 考虑一个环的情况。对于一个环$a_1,a_2…a_k$，构造集合$\lbrace x \mid x &#x3D; (2^k-1)p+2^{i-1} \rbrace \in S_{a_i}">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-14T07:55:03.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:24.584Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/09/14/19-9-14-%E6%99%BA%E5%95%86%E4%B8%8D%E8%B6%B3%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;09&#x2F;14&#x2F;19-9-14-%E6%99%BA%E5%95%86%E4%B8%8D%E8%B6%B3%E6%A8%A1%E6%8B%9F%E8%B5%9B&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;09&#x2F;14&#x2F;19-9-14-智商不足模拟赛&#x2F;&quot;,&quot;title&quot;:&quot;19.9.14 智商不足模拟赛&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>19.9.14 智商不足模拟赛 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#T1"><span class="nav-number">1.</span> <span class="nav-text">T1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T2"><span class="nav-number">2.</span> <span class="nav-text">T2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T3"><span class="nav-number">3.</span> <span class="nav-text">T3</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/09/14/19-9-14-%E6%99%BA%E5%95%86%E4%B8%8D%E8%B6%B3%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          19.9.14 智商不足模拟赛
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-14 15:55:03" itemprop="dateCreated datePublished" datetime="2019-09-14T15:55:03+08:00">2019-09-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:24" itemprop="dateModified" datetime="2021-06-17T23:15:24+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://baka.online/wp-content/uploads/2019/09/problem-1.pdf">Click here to AK IOI</a> 果然毒瘤场的开题顺序都是231吗。。</p>
+<h3 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h3><p>神仙题。。来一个不完整证明吧。。。 考虑一个环的情况。对于一个环$a_1,a_2…a_k$，构造集合$\lbrace x \mid x = (2^k-1)p+2^{i-1} \rbrace \in S_{a_i}$ 证明：考虑$p=1$，可以推出，$(2^k-1)+2^{i-2} \in S_{a_{i-1&#125;&#125; \Rightarrow (2^k-1)+2^{i-1} \in S_{a_{i&#125;&#125;$。又$2^k=(2^k-1)+1 \in S_{a_1}$。 然后，采用归纳法证明。如果$&lt; x$的$p$都成立的话，可以推出$x$成立。 如果一个点上有两个环，那么显然，如$((2^{k_1}-1),(2^{k_2}-1))=1$，一定可以表示出大于某个数后的任意整数。 然后，我们还有一个结论。如果$((2^{k_1}-1),(2^{k_2}-1))=1$，只需要$(k_1,k_2)=1$。这个也可以用归纳法证明。 这样，如果两个环大小（环上点数）互质，就可以判断了。一个强连通分量内任意点都可以走到一个可行点上绕圈，再走回来，所以同一个强连通分量内答案一样。 然后，再转化问题。各种环是很难找的，所以要寻找一种等价的东西。任选一点$x$，求出每个点和$x$的最短距离$d_i$，定义一条边的权值为$\mid d_i - d_j + 1 \mid$，求出边的最大公约数即可（忽略为$0$的边）。 证明：题解里并没有。。也懒得看那个必要性证明，自己YY了一发。 寻找哪里会出现非$0$的边。实际上，我们从某个点进入一个环，在走了一圈走回这个点的时候，会产生非$0$边，大小正好为环的大小。这样，可以通过边权找出所有简单环大小。</p>
+<h3 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h3><p>最简单的题。。。 $$a_1+a_2=a_{n-1}+a_n$$ $$a_2-a_1=a_n-a_{n-1}$$ 差分数组构成回文串。manacher。</p>
+<h3 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h3><p>属实带模拟题。 做法：首先预处理所有可行状态。可以算出，分出一组的方法很少。令$f_i$表示状态$i$是否可行，枚举从中分出一组，就可以了。顺便预处理出每种集合的和$sum_i$。 然后，令$g_i$表示初始组合为$i$的答案。 如果$i$直接可行，$g_i=sum_i$，否则，$g_i=\sum \frac{g_j}{p-size_i}$，$j$表示$i$去掉一个元素。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/11/sdoi2015%E5%BA%8F%E5%88%97%E7%BB%9F%E8%AE%A1-fft%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" rel="prev" title="SDOI2015序列统计 FFT生成函数">
+                  <i class="fa fa-chevron-left"></i> SDOI2015序列统计 FFT生成函数
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/16/noip2018-%E6%91%86%E6%B8%A1%E8%BD%A6-%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96dp/" rel="next" title="NOIP2018 摆渡车 斜率优化DP">
+                  NOIP2018 摆渡车 斜率优化DP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

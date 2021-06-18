@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="行列式 举个例子： $$\det(A) &#x3D; \begin{vmatrix} A \end{vmatrix} &#x3D; \begin{vmatrix} 1 &amp; 1 &amp; 4\ 5 &amp; 1 &amp; 4\ \end{vmatrix}$$ 定义$S_n$为全排列集合，若$\sigma$逆序对数量为$t$，${\rm s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="行列式 | 矩阵树定理 学习笔记">
+<meta property="og:url" content="http://oi.baka.online/2019/07/26/%E8%A1%8C%E5%88%97%E5%BC%8F-%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="行列式 举个例子： $$\det(A) &#x3D; \begin{vmatrix} A \end{vmatrix} &#x3D; \begin{vmatrix} 1 &amp; 1 &amp; 4\ 5 &amp; 1 &amp; 4\ \end{vmatrix}$$ 定义$S_n$为全排列集合，若$\sigma$逆序对数量为$t$，${\rm s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-26T01:19:01.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.601Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/07/26/%E8%A1%8C%E5%88%97%E5%BC%8F-%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;07&#x2F;26&#x2F;%E8%A1%8C%E5%88%97%E5%BC%8F-%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;07&#x2F;26&#x2F;行列式-矩阵树定理-学习笔记&#x2F;&quot;,&quot;title&quot;:&quot;行列式 | 矩阵树定理 学习笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>行列式 | 矩阵树定理 学习笔记 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">行列式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">证明：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%AE%BA%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">推论：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">证明：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%AE%BA%EF%BC%9A-1"><span class="nav-number">1.1.4.</span> <span class="nav-text">推论：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">求解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">矩阵树定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.</span> <span class="nav-text">几个矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.1.</span> <span class="nav-text">邻接矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%A6%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.2.</span> <span class="nav-text">度数矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Laplacian%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.3.</span> <span class="nav-text">Laplacian矩阵</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A0%91%E4%B8%AA%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">生成树个数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86Plus"><span class="nav-number">3.</span> <span class="nav-text">矩阵树定理Plus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E5%85%83%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">变元矩阵树定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">有向图的矩阵树定理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/07/26/%E8%A1%8C%E5%88%97%E5%BC%8F-%E7%9F%A9%E9%98%B5%E6%A0%91%E5%AE%9A%E7%90%86-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          行列式 | 矩阵树定理 学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-26 09:19:01" itemprop="dateCreated datePublished" datetime="2019-07-26T09:19:01+08:00">2019-07-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h3><p>举个例子： $$\det(A) = \begin{vmatrix} A \end{vmatrix} = \begin{vmatrix} 1 &amp; 1 &amp; 4\ 5 &amp; 1 &amp; 4\ \end{vmatrix}$$ 定义$S_n$为全排列集合，若$\sigma$逆序对数量为$t$，${\rm sgn}(\sigma)=(-1)^t$ $$\det(A) = \sum_{\sigma \in S_n} {\rm sgn}(\sigma) \prod_{i=1}^n a_{i,\sigma(i)}$$</p>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>$\det(A)=\det(A^T)$</li>
+<li>交换两行，取相反数</li>
+</ul>
+<h5 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：</h5><p>逆序对变化数为奇数。</p>
+<ul>
+<li>  某一行$\times k$，行列式$\times k$</li>
+</ul>
+<h5 id="推论："><a href="#推论：" class="headerlink" title="推论："></a>推论：</h5><p>两行相等，或成比例，行列式为$0$</p>
+<ul>
+<li>  两个行列式只有一行不同，它们行列式和等于不同的行相加，其它行不变的行列式</li>
+</ul>
+<h5 id="证明：-1"><a href="#证明：-1" class="headerlink" title="证明："></a>证明：</h5><p>对定义式用乘法分配率</p>
+<h5 id="推论：-1"><a href="#推论：-1" class="headerlink" title="推论："></a>推论：</h5><p>行列式一行$\times k$，加在另一行上，行列式的值不变。</p>
+<h4 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h4><p>由最后一条性质，我们可以把一个行列式变为上三角的形式。 $$\det(A) =k \det(A’)=k\prod_{i=1}^nA’_{i,i}$$ 其中，$k = 1 \ or -1$，是高斯消元的时候交换行时候维护的。</p>
+<h3 id="矩阵树定理"><a href="#矩阵树定理" class="headerlink" title="矩阵树定理"></a>矩阵树定理</h3><h4 id="几个矩阵"><a href="#几个矩阵" class="headerlink" title="几个矩阵"></a>几个矩阵</h4><h5 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h5><p>$A$，没什么好说的。</p>
+<h5 id="度数矩阵"><a href="#度数矩阵" class="headerlink" title="度数矩阵"></a>度数矩阵</h5><p>$D$，$D_{i,i}=\deg(v_i)$，$D_{i,j}=0$。 $deg$是度数。</p>
+<h5 id="Laplacian矩阵"><a href="#Laplacian矩阵" class="headerlink" title="Laplacian矩阵"></a>Laplacian矩阵</h5><p>拉普拉斯矩阵$L$。 $$L=D-A$$</p>
+<h4 id="生成树个数"><a href="#生成树个数" class="headerlink" title="生成树个数"></a>生成树个数</h4><p>把$L$去掉任意一行一列，求剩下的矩阵的行列式的绝对值，即为生成树个数。 证明很复杂，不会证。</p>
+<h3 id="矩阵树定理Plus"><a href="#矩阵树定理Plus" class="headerlink" title="矩阵树定理Plus"></a>矩阵树定理Plus</h3><h4 id="变元矩阵树定理"><a href="#变元矩阵树定理" class="headerlink" title="变元矩阵树定理"></a>变元矩阵树定理</h4><p>我们来具体考虑一下上面式子求出来的是什么。 经过大力看博客背结论，我们知道了，实际上上式求的是： $$\sum_{T} \prod_{e \in T} e$$ $T$是生成树，$e$是里面的边。</p>
+<h4 id="有向图的矩阵树定理"><a href="#有向图的矩阵树定理" class="headerlink" title="有向图的矩阵树定理"></a>有向图的矩阵树定理</h4><p>可以单独计算外向，内向树形图的个数。 修改度数矩阵，外向只保留外向边，内向只保留内向边。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/25/miller-rabin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Miller Rabin学习笔记">
+                  <i class="fa fa-chevron-left"></i> Miller Rabin学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/27/exbsgs-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="exBSGS 学习笔记">
+                  exBSGS 学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

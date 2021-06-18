@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="退役前给自己看的，删了一些东西放出来了，有兴趣可以看看  Conquer the World 题意：树上匹配，权是距离 模拟费用流。  Gem Island 题意：一开始每个人都有1个绿宝石，每天选一个存在的绿宝石并分裂，求拥有前r大的人绿宝石个数期望 考虑任意一种方案被得到的概率：考虑方案数，为分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杂题乱做2">
+<meta property="og:url" content="http://oi.baka.online/2020/08/24/noi%E5%89%8D%E8%AE%AD%E7%BB%83%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="退役前给自己看的，删了一些东西放出来了，有兴趣可以看看  Conquer the World 题意：树上匹配，权是距离 模拟费用流。  Gem Island 题意：一开始每个人都有1个绿宝石，每天选一个存在的绿宝石并分裂，求拥有前r大的人绿宝石个数期望 考虑任意一种方案被得到的概率：考虑方案数，为分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-24T06:02:57.000Z">
+<meta property="article:modified_time" content="2021-06-18T04:19:44.026Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/08/24/noi%E5%89%8D%E8%AE%AD%E7%BB%83%E8%AE%B0%E5%BD%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;08&#x2F;24&#x2F;noi%E5%89%8D%E8%AE%AD%E7%BB%83%E8%AE%B0%E5%BD%95&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;08&#x2F;24&#x2F;noi前训练记录&#x2F;&quot;,&quot;title&quot;:&quot;杂题乱做2&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>杂题乱做2 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Conquer-the-World"><span class="nav-number">1.</span> <span class="nav-text">Conquer the World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gem-Island"><span class="nav-number">2.</span> <span class="nav-text">Gem Island</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Cut-of-Failure"><span class="nav-number">3.</span> <span class="nav-text">Single Cut of Failure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangles"><span class="nav-number">4.</span> <span class="nav-text">Triangles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Black-and-White"><span class="nav-number">5.</span> <span class="nav-text">Black and White</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dirichlet-k-th-root"><span class="nav-number">6.</span> <span class="nav-text">Dirichlet k-th root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bags-of-Candies"><span class="nav-number">7.</span> <span class="nav-text">Bags of Candies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contamination"><span class="nav-number">8.</span> <span class="nav-text">Contamination</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lighthouses"><span class="nav-number">9.</span> <span class="nav-text">Lighthouses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sum-of-Palindromes"><span class="nav-number">10.</span> <span class="nav-text">Sum of Palindromes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#leq-or-geq"><span class="nav-number">11.</span> <span class="nav-text">leq or geq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stairways"><span class="nav-number">12.</span> <span class="nav-text">Stairways</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Halfwitters"><span class="nav-number">13.</span> <span class="nav-text">The Halfwitters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#To-argue-or-not-to-argue"><span class="nav-number">14.</span> <span class="nav-text">To argue, or not to argue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%84%8F%E8%AF%86%E7%9A%84%E7%9F%B3%E5%AD%90%E5%A0%86-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">15.</span> <span class="nav-text">无意识的石子堆 加强版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F-Q-%E7%9A%84%E5%BA%8F%E5%88%97"><span class="nav-number">16.</span> <span class="nav-text">小 Q 的序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucky-Tickets"><span class="nav-number">17.</span> <span class="nav-text">Lucky Tickets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Many-Easy-Problems"><span class="nav-number">18.</span> <span class="nav-text">Many Easy Problems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%81%93%E6%95%B0%E5%AD%A6%E9%A2%98-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">19.</span> <span class="nav-text">一道数学题 加强版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beautiful-Bracket-Sequence-hard-version"><span class="nav-number">20.</span> <span class="nav-text">Beautiful Bracket Sequence (hard version)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LCC"><span class="nav-number">21.</span> <span class="nav-text">LCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Game-Relics"><span class="nav-number">22.</span> <span class="nav-text">Game Relics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mergesort-Strikes-Back"><span class="nav-number">23.</span> <span class="nav-text">Mergesort Strikes Back</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mr-Kitayuta%E2%80%99s-Gift"><span class="nav-number">24.</span> <span class="nav-text">Mr. Kitayuta’s Gift</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BE%99%E4%B8%8E%E5%9C%B0%E4%B8%8B%E5%9F%8E"><span class="nav-number">25.</span> <span class="nav-text">龙与地下城</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%84%8F%E8%AF%86%E4%B9%8B%E5%A4%96%E7%9A%84%E6%8D%89%E8%BF%B7%E8%97%8F"><span class="nav-number">26.</span> <span class="nav-text">无意识之外的捉迷藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BD%E9%99%85%E8%B1%A1%E6%A3%8B"><span class="nav-number">27.</span> <span class="nav-text">国际象棋</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNG-and-XOR"><span class="nav-number">28.</span> <span class="nav-text">RNG and XOR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Good-Contest"><span class="nav-number">29.</span> <span class="nav-text">Good Contest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Isolation"><span class="nav-number">30.</span> <span class="nav-text">Isolation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Count-Modulo-2"><span class="nav-number">31.</span> <span class="nav-text">Count Modulo 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ColoringBalls"><span class="nav-number">32.</span> <span class="nav-text">ColoringBalls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Everything-on-It"><span class="nav-number">33.</span> <span class="nav-text">Everything on It</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%90%E4%B8%AA%E5%A5%97%E8%B7%AF%E6%B1%82%E5%92%8C%E9%A2%98"><span class="nav-number">34.</span> <span class="nav-text">某个套路求和题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LOJ%E6%9F%90%E6%AF%94%E8%B5%9B-%E6%B1%82%E5%92%8C"><span class="nav-number">35.</span> <span class="nav-text">[LOJ某比赛] 求和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9F%93%E8%89%B2"><span class="nav-number">36.</span> <span class="nav-text">二分图染色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misaka-Network-%E4%B8%8E%E6%B1%82%E5%92%8C"><span class="nav-number">37.</span> <span class="nav-text">Misaka Network 与求和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%9C%E5%A4%B4%E7%9A%84%E5%A5%96%E6%9D%AF"><span class="nav-number">38.</span> <span class="nav-text">蒜头的奖杯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbons-on-Tree"><span class="nav-number">39.</span> <span class="nav-text">Ribbons on Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Two-Histograms"><span class="nav-number">40.</span> <span class="nav-text">Two Histograms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8CCodePlus-2018-4-%E6%9C%88%E8%B5%9B%E3%80%8DTommy-%E7%9A%84%E7%BB%93%E5%90%88"><span class="nav-number">41.</span> <span class="nav-text">「CodePlus 2018 4 月赛」Tommy 的结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hyperrectangle"><span class="nav-number">42.</span> <span class="nav-text">Hyperrectangle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rigid-Frameworks"><span class="nav-number">43.</span> <span class="nav-text">Rigid Frameworks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#World-of-Tank"><span class="nav-number">44.</span> <span class="nav-text">World of Tank</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Tree"><span class="nav-number">45.</span> <span class="nav-text">The Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iron-Man"><span class="nav-number">46.</span> <span class="nav-text">Iron Man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Holy-Diver"><span class="nav-number">47.</span> <span class="nav-text">Holy Diver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network"><span class="nav-number">48.</span> <span class="nav-text">Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Sequence-of-Permutations"><span class="nav-number">49.</span> <span class="nav-text">A Sequence of Permutations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronized-Subsequence"><span class="nav-number">50.</span> <span class="nav-text">Synchronized Subsequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2017-%E6%96%91%E6%96%93%E4%B9%8B%E5%9C%B0"><span class="nav-number">51.</span> <span class="nav-text">[APIO2017]斑斓之地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Distance-Sums"><span class="nav-number">52.</span> <span class="nav-text">Distance Sums</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CF1336D-Yui-and-Mahjong-Set"><span class="nav-number">53.</span> <span class="nav-text">CF1336D Yui and Mahjong Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WC2018-%E6%88%98%E7%95%A5%E6%B8%B8%E6%88%8F"><span class="nav-number">54.</span> <span class="nav-text">[WC2018] 战略游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%BF%E5%87%BD%E6%95%B0%E5%92%8C%E9%9E%85%E7%9A%84%E5%81%9C%E6%97%B6%E5%AE%9A%E7%90%86"><span class="nav-number">55.</span> <span class="nav-text">势函数和鞅的停时定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%A0%91"><span class="nav-number">56.</span> <span class="nav-text">数树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%AB%8B%E6%96%B9%E4%BD%93"><span class="nav-number">57.</span> <span class="nav-text">随机立方体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%AA%E9%87%91%E6%89%8B%E6%B8%B8"><span class="nav-number">58.</span> <span class="nav-text">氪金手游</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D"><span class="nav-number">59.</span> <span class="nav-text">重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8CJOISC-2017-Day-1%E3%80%8D%E7%83%9F%E8%8A%B1%E6%A3%92"><span class="nav-number">60.</span> <span class="nav-text">「JOISC 2017 Day 1」烟花棒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2018-%E9%80%89%E5%9C%86%E5%9C%88"><span class="nav-number">61.</span> <span class="nav-text">[APIO2018] 选圆圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2018-%E6%96%B0%E5%AE%B6"><span class="nav-number">62.</span> <span class="nav-text">[APIO2018] 新家</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2019-%E5%A5%87%E6%80%AA%E8%A3%85%E7%BD%AE"><span class="nav-number">63.</span> <span class="nav-text">[APIO2019]奇怪装置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2019-%E6%A1%A5%E6%A2%81"><span class="nav-number">64.</span> <span class="nav-text">[APIO2019]桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APIO2019-%E8%B7%AF%E7%81%AF"><span class="nav-number">65.</span> <span class="nav-text">[APIO2019]路灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Easy-win"><span class="nav-number">66.</span> <span class="nav-text">Easy win</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WC2019-I%E5%90%9B%E7%9A%84%E5%95%86%E5%BA%97"><span class="nav-number">67.</span> <span class="nav-text">[WC2019]I君的商店</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NOI2019-I%E5%90%9B%E7%9A%84%E6%8E%A2%E9%99%A9"><span class="nav-number">68.</span> <span class="nav-text">[NOI2019]I君的探险</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/08/24/noi%E5%89%8D%E8%AE%AD%E7%BB%83%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          杂题乱做2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-24 14:02:57" itemprop="dateCreated datePublished" datetime="2020-08-24T14:02:57+08:00">2020-08-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-18 12:19:44" itemprop="dateModified" datetime="2021-06-18T12:19:44+08:00">2021-06-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>退役前给自己看的，删了一些东西放出来了，有兴趣可以看看</p>
+<h3 id="Conquer-the-World"><a href="#Conquer-the-World" class="headerlink" title="Conquer the World"></a>Conquer the World</h3><p>题意：树上匹配，权是距离 模拟费用流。</p>
+<h3 id="Gem-Island"><a href="#Gem-Island" class="headerlink" title="Gem Island"></a>Gem Island</h3><p>题意：一开始每个人都有1个绿宝石，每天选一个存在的绿宝石并分裂，求拥有前r大的人绿宝石个数期望 考虑任意一种方案被得到的概率：考虑方案数，为分配序列的排列，乘上$\prod a_i$。这是因为每一组都有很多个，可以任选一个。发现方案数和具体方案无关，那么答案就是总和/总方案数。 考虑DP，考虑分层DP，每次给上一次的子集+1。可以发现这样可以得到想要的答案。</p>
+<h3 id="Single-Cut-of-Failure"><a href="#Single-Cut-of-Failure" class="headerlink" title="Single Cut of Failure"></a>Single Cut of Failure</h3><p>题意：方框内划线，切割所有线。 可以发现答案的上届是$2$。双指针可以判断是否可以是$1$。</p>
+<h3 id="Triangles"><a href="#Triangles" class="headerlink" title="Triangles"></a>Triangles</h3><p>题意：数三角 考虑在三角一个顶点统计答案，可以发现，与另一条边有关。另一条边有一个控制范围，BIT维护。</p>
+<h3 id="Black-and-White"><a href="#Black-and-White" class="headerlink" title="Black and White"></a>Black and White</h3><p>题意：路径贡献为左边的两种颜色差，求贡献为某个数的路径有多少 首先要注意，题意中的左边，指的是所有左边，不是挨着的点。。。。。。。。。。。。。。。。。。。。。。。。。。。那么钦定路径长度是偶数，如果不是，枚举最后一步改为偶数。 考虑两步为一个周期统计。发现只有走出拐形才有贡献。钦定两种一共走了$p$次，那么可以计算出需要各走多少次。之后排列一下就可以了。 关于走多少次怎么算：钦定各走了$i,j$次，则贡献为：$\frac{i+j+1}{2}-j$。</p>
+<h3 id="Dirichlet-k-th-root"><a href="#Dirichlet-k-th-root" class="headerlink" title="Dirichlet k-th root"></a>Dirichlet k-th root</h3><p>$f^k \equiv g \pmod p$，已知$g,p$求$f$ 迪利克雷卷积也可以用费马小定理。</p>
+<h3 id="Bags-of-Candies"><a href="#Bags-of-Candies" class="headerlink" title="Bags of Candies"></a>Bags of Candies</h3><p>题意：$[1,n]$的整数，如果gcd不为1就可以放在一组，一组最多两个，求最少分成多少组 考虑大于$n/2$的素数，显然只能一组。1只能一组。结论：除了它们，都能配对。 证明：考虑按每个数的最大质因子划分。最大质因子相同的显然可以匹配。如果有奇数个，匹配则不完全，那么把$2x$这个数单独留下不匹配，可以发现剩下的都有2，还能匹配。 那么只需求区间素数个数。min25即可。</p>
+<h3 id="Contamination"><a href="#Contamination" class="headerlink" title="Contamination"></a>Contamination</h3><p>题意：给定不相交圆，钦定y坐标范围，给定两个点，求是否可以不碰圆走到。 因为不交，如果被阻拦，一定是一个圆从下边界顶到了上边界。扫描线即可</p>
+<h3 id="Lighthouses"><a href="#Lighthouses" class="headerlink" title="Lighthouses"></a>Lighthouses</h3><p>题意：凸包，给定一些对角线，求一条不自交最长路。 倍长凸包，之后发现可以区间DP。</p>
+<h3 id="Sum-of-Palindromes"><a href="#Sum-of-Palindromes" class="headerlink" title="Sum of Palindromes"></a>Sum of Palindromes</h3><p>题意：把一个数分解为若干回文数和，不超过25个 考虑构建一个回文串：只需取原数字一半，减1,再倍长。那么这样会让原数变短一半。</p>
+<h3 id="leq-or-geq"><a href="#leq-or-geq" class="headerlink" title="leq or geq"></a>leq or geq</h3><p>题意：交互，给定10000个大小为10的栈，只知道栈顶，自己选一个数，题目给出一个符号，把和这个符号构成关系的都弹掉。50次弹空。 考虑势能：给每个数选一个势能，找一个数，使得无论是什么符号，势能都减少足够的值。 题解给出的做法是，令权值为$3^s$，找出一个数使得小于，大于它的都有一定数量，则弹后一定有一半除以3，势能下降到2/3。</p>
+<h3 id="Stairways"><a href="#Stairways" class="headerlink" title="Stairways"></a>Stairways</h3><p>题意：一堆人走两个楼梯，经典问题 考虑DP，那么发现需要维护：区间+v，区间+i，区间min。分块+凸包维护。 注意斜率不要写错。。。。</p>
+<h3 id="The-Halfwitters"><a href="#The-Halfwitters" class="headerlink" title="The Halfwitters"></a>The Halfwitters</h3><p>题意：三种操作，各有代价：交换序列相邻位置，反转序列，随机打乱。求把序列排成顺序的期望次数。 考虑直接求，交换次数就是逆序对（从1,2,3开始换），可以做。 一个排列两种决策：直接换，随机打乱。 考虑求随机的期望，那么把每种排列的代价排序，枚举断点，那么$x=\sum pre+sufx$，解方程解出来最优的</p>
+<h3 id="To-argue-or-not-to-argue"><a href="#To-argue-or-not-to-argue" class="headerlink" title="To argue, or not to argue"></a>To argue, or not to argue</h3><p>题意：一张图，有些位置可以放，一对人不能放在一起，求方案数 考虑容斥，变成至少i对人放在一起，插头Dp即可</p>
+<h3 id="无意识的石子堆-加强版"><a href="#无意识的石子堆-加强版" class="headerlink" title="无意识的石子堆 加强版"></a>无意识的石子堆 加强版</h3><p>题意：$nm$的矩阵，放$2n$个石子，每行每列最多$2$个，方案数 发现每一行都要放恰好$2$个。那么考虑枚举放了$2$个的列有多少。之后考虑方案数： 二分图，左边度数是$2$，右边一些是$1$一些是$2$。 首先考虑瞎连边，发现有可能两个点之间连了两条边，是错误的。所以容斥。连边的时候假设两条边有序，之后除掉，就可以做了。</p>
+<h3 id="小-Q-的序列"><a href="#小-Q-的序列" class="headerlink" title="小 Q 的序列"></a>小 Q 的序列</h3><p>题意：序列权值为$\prod (a_i+i)$，对于输入序列所有子序列求权值和。 考虑一个DP：$f_{i,j}=f_{i-1,j-1}(A_i+j)+f_{i-1,j}$ 考虑优化：这个DP有些复杂，用$i-j$代替$j$：$f_{i,j}=f_{i-1,j}(A_i+i-j)+f_{i-1,j-1}$ 那么直接考虑组合含义：对于一个元素有三种选择：不选，贡献为$A_i+i$。放进原来的盒子里，或放进新的盒子里，不选的可以分治NTT，剩下的部分考虑DP：$g_{i,j}=-g_{i-1,j}j+g_{i-1,j-1}$把转移乘$-1$，组合意义变成了贡献是$(-1)^m$。 那么考虑生成函数：固定$j$，生成函数是有标号随便放，除以盒子排列。答案要对所有$g$求和，推一下发现是$e^{1-e^x}$</p>
+<h3 id="Lucky-Tickets"><a href="#Lucky-Tickets" class="headerlink" title="Lucky Tickets"></a>Lucky Tickets</h3><p>题意略 重新注意一下比较系数求幂的方法。 其实有一个更简单的推倒方法： $$g=f^k$$ $$g’=kf’f^{k-1}$$ $$g’f=kf’g$$ 比较系数即可</p>
+<h3 id="Many-Easy-Problems"><a href="#Many-Easy-Problems" class="headerlink" title="Many Easy Problems"></a>Many Easy Problems</h3><p>题意：一个点集会被能包含它的，最小的联通块覆盖。求每个大小的点集，覆盖所有这个大小的点集的联通块大小和。 考虑算一个点的贡献：如果贡献，那么在不同子树中出现。就可以做了</p>
+<h3 id="一道数学题-加强版"><a href="#一道数学题-加强版" class="headerlink" title="一道数学题 加强版"></a>一道数学题 加强版</h3><p>考虑$f$的递推式：$f_{i}=2f_{i-1}+i^k-(i-1)^k$，令$g_{i}=2g_{i-1}-i^k+(i-1)^k$，则$f_i+g_i=2(f_{i-1}+g_{i-1})$。 $g$是一个$K-1$次多项式（原因待填 现在的问题是不知道$g_0$是多少。那么看作未知数，直接递推出$g_1,…,g_n$，再插值插出$g_0$即可。 原因Update： 看来需要补习数学知识啊。。 实际上，$f_i=2f_{i-1}+i^k-(i-1)^k$，是一个$k-1$次多项式。只不过问题是，因为它有$f_1=1$的限制，推出来的式子不满足这个限制，所以不可以直接求解。 那么下面来证明这样的式子是$k-1$次多项式： 实际上非常的简单。 考虑$x^k - (x-1)^k$。容易知道，这个式子是一个$k-1$次多项式。 考虑$f$的形状。它一定形如若干$k-1$次多项式之和，其中$i$是$0,n$之间的整数。 那么它就是$k-1$次多项式了。 至于怎么知道上面的式子因为$f_1=1$不满足了？这就又是一个坑了。目前并不会数学证明，只能考虑用等同于$g$的方法验证。 不过虽然不知道如何证明，却可以记一个技巧：看到这个式子很简单，那么大概率有天坑</p>
+<h3 id="Beautiful-Bracket-Sequence-hard-version"><a href="#Beautiful-Bracket-Sequence-hard-version" class="headerlink" title="Beautiful Bracket Sequence (hard version)"></a>Beautiful Bracket Sequence (hard version)</h3><p>题意：括号序列，一些位置可以自己填，定义贡献为删掉一些后最长匹配，求所有方案之和 题目要求的是删掉一些后的括号匹配，那么直接从左到右，从右到左扫就好了。枚举中点，令两边恰好有某个个数的括号即可。 记一个Trick：$\binom nm m=\binom{n-1}{m-1}n$</p>
+<h3 id="LCC"><a href="#LCC" class="headerlink" title="LCC"></a>LCC</h3><p>题意：一个点可以往两边走。定义答案为最小的相遇时间，求期望 之前做过。考虑枚举答案在哪里产生，求概率。那么它的概率就是，在某时刻后碰撞减去当前碰撞。 考虑如何求某时刻后碰撞的概率：把某时刻前可能碰撞的方案都删掉，之后DP一下。可以用线段树维护DP。</p>
+<h3 id="Game-Relics"><a href="#Game-Relics" class="headerlink" title="Game Relics"></a>Game Relics</h3><p>题意：抽卡有代价，保底有代价，如果抽到已经有的，返钱。保底价格一定高于抽卡。求期望 可以发现因为抽卡更便宜，先抽一会比较优秀。我们无法控制抽卡的走向，于是计算每一种情况的贡献。 注意到抽卡越来越贵。那么求出每种状态（数量，和）的概率后，求它转移到多一个数量的期望。要么抽卡，要么把后面的全买上。全买不好表示，可以加一个平均数。因为后面都是买，就对了</p>
+<h3 id="Mergesort-Strikes-Back"><a href="#Mergesort-Strikes-Back" class="headerlink" title="Mergesort Strikes Back"></a>Mergesort Strikes Back</h3><p>题意：归并排序，钦定了只能递归几层。求逆序对期望 考虑先把每一块求出来，之后算两块之间的贡献。 一块内的好算，只需要算两块。注意到两块的本质是划分成下降子段后，对段头排序。考虑随机状况下的期望：1/2。在新的排序方法下，还是随机的，只不过有特殊情况：一个点是max时，不可能有贡献。于是期望就是$\frac{1}{2}-\frac{1}{i+j}$。 注意到叶子只有两种，枚举就可以了</p>
+<h3 id="Mr-Kitayuta’s-Gift"><a href="#Mr-Kitayuta’s-Gift" class="headerlink" title="Mr. Kitayuta’s Gift"></a>Mr. Kitayuta’s Gift</h3><p>题意：给一个串，长度是200。添加1e9个字符使得它是回文的，求方案，要求回文串本质不同 跪了。。注意到本质不同，那么考虑尽量把串往外匹配确保唯一 令$f_{l,r,i}$表示$l,r$没匹配，一共用了$i$个字符的方案数。 那么对两端是否相同分类讨论。可以DP。 考虑构造自动机，并DP。复杂度没变。 考虑压缩自动机：对两端是否相等的路径分类讨论。发现类型相同的点转移相同，于是顺序无关。那么本质不同的路径只有n条。压成n条路径。 发现复杂度还是很高，继续压缩：构造两排点，之间连边即可。把路径数放在两种点之间的边。矩乘。 注意到当幂是奇数时，最后一步如果要消去两个点，则不可能。所以奇数时再算一下减去即可。</p>
+<h3 id="龙与地下城"><a href="#龙与地下城" class="headerlink" title="龙与地下城"></a>龙与地下城</h3><p>题意：正态分布，求期望。 考虑一种多项式做法：构造一个正态分布的函数，求幂即可。但是复杂度很高，考虑优化： 注意到正态分布两边的值很小，只需要每次把边界的数直接删掉即可。</p>
+<h3 id="无意识之外的捉迷藏"><a href="#无意识之外的捉迷藏" class="headerlink" title="无意识之外的捉迷藏"></a>无意识之外的捉迷藏</h3><p>题意：DAG上博弈，一个人抓另一个人。两人操作是同时的。求抓住的期望时间 考虑DP：$f_{x,y,t}$。但是问题是，不一定存在最优解。因为操作同时，只能把策略变成更倾向于某一种操作。这个问题可以用线性规划解决，但是不会。</p>
+<h3 id="国际象棋"><a href="#国际象棋" class="headerlink" title="国际象棋"></a>国际象棋</h3><p>考虑主元法：把上方2行，左边1行看作未知数，就可以表示每个格子了。</p>
+<h3 id="RNG-and-XOR"><a href="#RNG-and-XOR" class="headerlink" title="RNG and XOR"></a>RNG and XOR</h3><p>题意：初始为0，每次有概率变成其它数，求变成每个数的期望次数。 列出高斯消元的式子，之后移项，发现求逆就可以。但是问题是有$0$，那么待定系数求解。</p>
+<h3 id="Good-Contest"><a href="#Good-Contest" class="headerlink" title="Good Contest"></a>Good Contest</h3><p>题意：APIO那个DP题同款 根据套路，左闭右开离散化，之后DP就好了</p>
+<h3 id="Isolation"><a href="#Isolation" class="headerlink" title="Isolation"></a>Isolation</h3><p>题意：初始坐标在$1500$内，走$1500$步，不能走到距离原点曼哈顿距离是$4$的地方，求方案数。 考虑求出$t$步，第一次碰到边界的方案数：考虑到合法的点只有$16$个，直接暴力设状态暴力转移即可。要解决的唯一问题就是，走若干步，从一个点走到另一个点的方案数。 考虑旋转坐标系，之后就转化为了两维独立，且每一维都要走。就可以算了</p>
+<h3 id="Count-Modulo-2"><a href="#Count-Modulo-2" class="headerlink" title="Count Modulo 2"></a>Count Modulo 2</h3><p>题意：$200$种元素，选$1e18$个，使得和等于$s$。求方案数模$2$。 考虑记录每种元素选了多少。考虑模$2$：每种元素选的个数都要是$n$的子集，且不交。 那么枚举$n$的每一位，选一个数上来。 注意到，此时选的数$\geq 2^i$，那么说明比这一位低的位，必须在模意义下与$s$相同。也就是说，上一次DP出的结果，只有一部分可以转移到这一位。 那么在DP后，把符合条件的移一位就可以了。</p>
+<h3 id="ColoringBalls"><a href="#ColoringBalls" class="headerlink" title="ColoringBalls"></a>ColoringBalls</h3><p>题意：给定操作序列，对空白序列染色。染色时，可以在之前的基础上染。但是特别的，蓝色不能在空白的上染。求最终序列数。 考虑合法序列条件：把相同颜色缩起来之后，用白色分割序列。每一段独立。 考虑一段有若干蓝色，那么一定形如RBRBRBRB…。要想染出这样的形状，需要一次红色一次蓝色，后面就可以任意了。 那么考虑DP这个蓝色数量。把70划分一下，发现方案数是不多的。贪心匹配即可。 考虑计算方案：首先多重排列，之后计算给定蓝色，对应多少合法序列： 考虑最简序列，之后在最简序列中插一些点进去。首先，有一些球已经钦定了，不能用。考虑去重后最长序列样式唯一。那么用剩下的球插出这个序列即可。</p>
+<h3 id="Everything-on-It"><a href="#Everything-on-It" class="headerlink" title="Everything on It"></a>Everything on It</h3><p>题意：求子集族方案数，满足每个元素至少出现$2$次。 考虑容斥，钦定$i$个出现了$1$次。那么问题就变成了怎么求有多少出现了$1$次。 首先钦定一共分入了$j$个子集族。那么考虑加一个垃圾堆，就可以求出方案数。 剩下的$n-i$个数，瞎选有$2^{2^{n-i&#125;&#125;$种方案。考虑前面的$j$个子集族，子集可以随便往里面加，那么再乘$({2^{n-i&#125;&#125;)^j$。</p>
+<h3 id="某个套路求和题"><a href="#某个套路求和题" class="headerlink" title="某个套路求和题"></a>某个套路求和题</h3><p>题意：n的约数的mu之积，求前缀和 考虑上面式子的含义：没有平方因子的才有值，并且值是1，特别的，质数是-1。那么求一下没有平方因子的，和质数有多少就可以了</p>
+<h3 id="LOJ某比赛-求和"><a href="#LOJ某比赛-求和" class="headerlink" title="[LOJ某比赛] 求和"></a>[LOJ某比赛] 求和</h3><p>题意：求$\sum_{i=1}^n \sum_{j=1}^m \mu^2(gcd(i,j))$，数据范围$10^{13}$ 考虑枚举gcd，反演，就变成了$\sum_{i=1}^n \sum_{di} \mu^2(d)\mu(i/d)$ 考虑后面的式子：首先$i$的约数最多幂是$2$，否则就只能是$0$。 考虑幂是$2$的，一定是平均分配，对乘对贡献是$1$。 考虑幂是$1$的。把它拿出来，剩下的式子写出来，再考虑把它插回去。发现插在两边抵消了。 于是只有是完全平方数的时候才有值，就可以化简</p>
+<h3 id="二分图染色"><a href="#二分图染色" class="headerlink" title="二分图染色"></a>二分图染色</h3><p>题意：完全二分图，可以空着或者染两种颜色，要求同色不共用点 考虑转化为网格图，之后就是一行一列只能放一种颜色。考虑两种方案分别算，乘一下，减去共用格子的。枚举共用格子容斥。 问题是如何求方案数：考虑$f_n$，新加入一行一列。只考虑行，向之前连边，如果已经有边就断开连列。那么方案唯一。对列也做一次。 问题是可能有重复，前面的每对点都有贡献，减去。 $$f_{n}=2nf_{n-1}-(n-1)^2f_{n-2}$$</p>
+<h3 id="Misaka-Network-与求和"><a href="#Misaka-Network-与求和" class="headerlink" title="Misaka Network 与求和"></a>Misaka Network 与求和</h3><p>$\sum_{i=1}^n\sum_{j=1}^n f(gcd(i,j))^k$，其中$f$表示次大因子。 考虑一波反演，问题转化为了求$\sum_{dn}f(d)^k\mu(n/d)$。 考虑杜教筛：卷一个$I$，$\mu$就没了。问题转化为求$f(i)^k$前缀和。 考虑min25筛：$S(n,j)$表示因子不小于$j$。那么分类讨论贡献在哪里产生。 min25筛的时候，分类讨论：在状态$S(n,j)$，钦定第二大因子在这里产生的方案，就是比$p_j$大的质数乘$p_j$。剩下的直接加就好了。 以及，看freopen的博客冷静了一下，其实化简到一半的时候有个$\varphi$，直接筛也行…</p>
+<h3 id="蒜头的奖杯"><a href="#蒜头的奖杯" class="headerlink" title="蒜头的奖杯"></a>蒜头的奖杯</h3><p>题意：$\sum_{i,j,k}A_iB_jC_kD_{(i,j)}E_{(j,k)}F_{(i,k)}$ 丧心病狂题。考虑先枚举$k$，顺便枚举$(j,k),(i,k)$。因为$k$的范围与$lcm$有关，就缩小到了能看的范围。 枚举两个gcd的gcd，后面可以算。经过大力推倒，可以得到一个复杂度与$x$或$y$有关的式子。那么钦定$x \leq y$，就可以大力枚举。 注意高维前缀和的技巧：枚举质数</p>
+<h3 id="Ribbons-on-Tree"><a href="#Ribbons-on-Tree" class="headerlink" title="Ribbons on Tree"></a>Ribbons on Tree</h3><p>题意：树上点对配对，把路径染色。求整个树都有颜色方案 考虑容斥，枚举联通块，求方案数。方案数就是块内点两两配对，即$n!!$。 但是不能枚举，考虑优化过程：直接DP，并动态记录。注意到数据范围不大，可以考虑DP时记录当前联通块有多大。</p>
+<h3 id="Two-Histograms"><a href="#Two-Histograms" class="headerlink" title="Two Histograms"></a>Two Histograms</h3><p>题意：行列可以贴着两个边界+1，求本质不同方案数。 之前做过，写了个**。 考虑什么时候会重复：两条顶住了。那么考虑钦定其中一种顶法有$i$条，剩下的随便，目标是把它容斥没。 考虑$i$条方案：$f_i=(m+1)^{n-i}(n+1)^{m-i}\binom{n}{i} \binom{m}{i}i!$</p>
+<h3 id="「CodePlus-2018-4-月赛」Tommy-的结合"><a href="#「CodePlus-2018-4-月赛」Tommy-的结合" class="headerlink" title="「CodePlus 2018 4 月赛」Tommy 的结合"></a>「CodePlus 2018 4 月赛」Tommy 的结合</h3><p>题意：树上斜率优化。 做法：写的倍增飞了。。发现二分其实也挺好写的。。。 核心思想如下：考虑二分出弹栈弹到哪里。具体来说，二分最靠前的，不能用的位置，把它替换成新的。注意到这事实等价于两个操作：修改栈的一个位置，移动右端点。于是可以维护。询问也二分，二分最靠前的满足条件的位置即可。</p>
+<h3 id="Hyperrectangle"><a href="#Hyperrectangle" class="headerlink" title="Hyperrectangle"></a>Hyperrectangle</h3><p>题意：超立方体，求和到原点$\leq s$的单纯性的体积 首先考虑没有每一维的限制的答案：考虑积分，首先二维可以求出。之后迭代的对每一维积分，可以发现答案是$\frac{1}{d!}s^d$ 那么每一维有限制，就考虑容斥。钦定一组超过限制，那么把$s$减去它们的和，求一下。这样的原因是我们需要减去多余的面积，那么钦定一些维超过，求得的面积就是多余的。 具体来说，令$f_i$表示，之后$f_i = f_i - f_{i-A}$，求容斥系数就可以了。</p>
+<h3 id="Rigid-Frameworks"><a href="#Rigid-Frameworks" class="headerlink" title="Rigid Frameworks"></a>Rigid Frameworks</h3><p>题意：给一个网格，可以在每个格子加斜对角线，要求网格稳定。求方案数 考虑什么时候稳定：事实上和方向无关，只需每行每列都有就行了。于是转化为二分图，要求联通，方案数。根据套路枚举第一个点联通块即可</p>
+<h3 id="World-of-Tank"><a href="#World-of-Tank" class="headerlink" title="World of Tank"></a>World of Tank</h3><p>题意：$2 \times n$的矩形，坦克从一端走到另一端，可以绕路可以开炮，炮有冷却，求方案 考虑到达一个点后有关的是当前冷却了多久，越久越好。注意到冷却完毕后，如果不绕路，应该立即开炮。那么在一行走哦的时候，可以把时间累加起来，高于冷却上限，但是转弯的时候必须求min。又注意到有用的点不多，离散DP就行了</p>
+<h3 id="The-Tree"><a href="#The-Tree" class="headerlink" title="The Tree"></a>The Tree</h3><p>题意：三种操作，从白点染色，如果没染，递归子树。子树染白。单点询问 考虑操作分块：之后在虚树上暴力。或者树剖，一个点被染色，那么祖先存在一个点，权值到它比距离大。考虑子树推平：首先清零，之后如果祖先的max还会染到，把x点减少一些权值。</p>
+<h3 id="Iron-Man"><a href="#Iron-Man" class="headerlink" title="Iron Man"></a>Iron Man</h3><p>题意：树，给若干路径，有时间，速度，起点终点。求最小相遇时间 考虑链怎么做：枚举，求交点。这个太慢，优化：如果两个线段相交，那么必然有它们的起点是相邻的。扫描线。树上树剖就行了</p>
+<h3 id="Holy-Diver"><a href="#Holy-Diver" class="headerlink" title="Holy Diver"></a>Holy Diver</h3><p>题意：每次序列后push一个值，再给定l，r，求区间的子区间mex和。 维护右端点的mex：加入点后，受影响的是mex=a的区间。把它丢掉，之后更新。对于答案，用线段树维护。具体来说，$l,r$的答案=$r$版本线段树的答案。因为当前只有一段有效，一次修改，首先把上次的删掉，贡献为持续时间。之后更新当前区间，两种贡献：区间长度，区间长度乘起始时间。永久化标记解决。 描述一下怎么更新mex：考虑加入数字$a$，那么找出一个数满足大于$a$，且上一次出现位置在$r$之前。那么$[p,r]$的$mex$就是它。多次重复即可。</p>
+<h3 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h3><p>题意：给定A点B点，定义路径权值为路径max-min，定义A点权值为它到B点的权值max。定义答案为A点权值min。现在可以反转一个A变成B，求最大答案 首先求出不反转的答案。考虑点分，之后拼接答案。因为只关心极值，所以直接记录子树的权值区间$[L,R]$，以及次优值。之后可以拼接。 考虑反转一个点，之后点分树上跑一下，更新答案。二分答案，判断反转后是否还存在小于答案的点。这个可以通过分类讨论得到。 代码没写，咕咕咕</p>
+<h3 id="A-Sequence-of-Permutations"><a href="#A-Sequence-of-Permutations" class="headerlink" title="A Sequence of Permutations"></a>A Sequence of Permutations</h3><p>题意：给两个排列，定义递推，下一个是$f(p,q)$，表示第$p_i$个元素为$q_i$。 $a_{p_i}=q_i,a_{i}=q_ip^{-1}_i$。后面是找规律，这个我也没办法了</p>
+<h3 id="Synchronized-Subsequence"><a href="#Synchronized-Subsequence" class="headerlink" title="Synchronized Subsequence"></a>Synchronized Subsequence</h3><p>题意：序列，只有$a,b$，数量相等，一对可以一起删，最大字典序。 考虑从两种相等的位置断开，考虑每一段：如果$a$开头，贪心选$ab$。如果$b$开头，考虑多选$b$肯定优秀，但是不一定每个$b$都要选：比如$bbbabbbbb$，那么不选第一个$b$比较好。假设知道了第一个$b$是谁，后面的$b$都要选，枚举判断。</p>
+<h3 id="APIO2017-斑斓之地"><a href="#APIO2017-斑斓之地" class="headerlink" title="[APIO2017]斑斓之地"></a>[APIO2017]斑斓之地</h3><p>题意：网格图联通块 老套路：一个点-两个点+四个点。</p>
+<h3 id="Distance-Sums"><a href="#Distance-Sums" class="headerlink" title="Distance Sums"></a>Distance Sums</h3><p>题意：给定每个点到其它点的最短路，复原这个树 首先最大值对应的是叶子，考虑求它连着的边。事实上是可以从一个点推出另一个点答案的。所以就推一下连着的点是多少，连上就行了。 注意最后要check一下答案。</p>
+<h3 id="CF1336D-Yui-and-Mahjong-Set"><a href="#CF1336D-Yui-and-Mahjong-Set" class="headerlink" title="CF1336D Yui and Mahjong Set"></a>CF1336D Yui and Mahjong Set</h3><p>题意：交互，可以求$\sum \binom{a_i}{3}, \sum a_{i-1}a_ia_{i+1}$，可以单次$+1$，可以操作$n$次，求每个位置 考虑先把$3,n-1$操作一下，之后求出$1,2,3,4$，就知道答案了。进行$121$这样的操作即可。</p>
+<h3 id="WC2018-战略游戏"><a href="#WC2018-战略游戏" class="headerlink" title="[WC2018] 战略游戏"></a>[WC2018] 战略游戏</h3><p>题意：交互，可以询问$(x,y)$，返回从$x$出发往$y$走第一个碰到的点。$nlogn$次确定答案 考虑如果走过，就跳到目标点。但是可能跳过，考虑一层一层的跳，点分树优化。动态点分即可，注意动态点分重构时，父亲会改变。</p>
+<h3 id="势函数和鞅的停时定理"><a href="#势函数和鞅的停时定理" class="headerlink" title="势函数和鞅的停时定理"></a>势函数和鞅的停时定理</h3><p>我也不知道是啥，记个做法： 期望步数的题，对于状态记录势函数$\varphi(A_t)=\sum_i f(A_{t,i})$。考虑推出$A_{t+1}$。发现可以列一个等式。 势函数需要满足走一步值$-1$，通过这个，可以求出$f$的形式。</p>
+<h3 id="数树"><a href="#数树" class="headerlink" title="数树"></a>数树</h3><p>题意：给定一个树，另一个不确定，求$\sum y^k$，其中k是交集大小。再求两个树都不确定的。 首先考虑钦定一个相同集合，再求方案。那么可能会有更多边相同。但是考虑钦定一个集合$s$，会被算多少：会被子集合$t$算到。考虑贡献：$\sum y^i \binom ni$，所以把$y-1$之后直接算就行了。 之后考虑DP：$f_{x,0/1}$表示集合内是否选了点。 两个的：钦定相同集合，大小一样的一起算。可以写成EXP的形式。$\sum_{\sum a_i=n} \prod a_i$这样的式子。</p>
+<h3 id="随机立方体"><a href="#随机立方体" class="headerlink" title="随机立方体"></a>随机立方体</h3><p>题意：立方体，一个点是优秀的，则和它相交的三个平面上的值都小于他。求有恰好k个优秀点方案 考虑转化为至少，那么钦定k个点，并钦定一些数分给它的并集，再乘一下分配方案数 考虑分配方案数：把关键点从小到大放，发现放大关键点的时候，小关键点用到的值，都满足新的限制。于是可以转化为一个树，树的拓扑序方案就是全排列，除以每个子树大小的逆元</p>
+<h3 id="氪金手游"><a href="#氪金手游" class="headerlink" title="氪金手游"></a>氪金手游</h3><p>题意：一个人有三种值，是随机的。选一个点概率是$w_i / w_{sum}$给一个树，边有方向，要求指向的比起点选中更晚，求方案 首先变成外向树并DP，对于其它方向，容斥掉 考虑一条链，则一个点在它后面之前被选概率，等于$w_i / w_{son}$，之后树形DP。</p>
+<h3 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h3><p>题意：给定串$S$，求有多少$T$，满足$T$复制无限份后，存在一个子串字典序比$S$小。 首先转化一下求不存在。考虑把$S$的KMP自动机搞出来，在上面跑。一个点的出边有一些是不能用的，具体来说，是fail树上的max。 有一个这样的性质：在跑无穷多次后，会循环，且循环节是$m$的约数。 证明：冷静了一下有一种简单的理解：考虑匹配到的是S的前缀，T的后缀。当长度为无穷的时候，加一个还是无穷，没有变化，所以循环长度不可能是倍数。 那么考虑不同的T串，走出的循环路一定不同，那么只需对循环计数。具体来说，令$f_{i,j}$，表示走$i$步，走到$j$的方案即可。 但是复杂度不太对劲，考虑优化：考虑每个点的出边，可以发现一定是前缀的max。那么也就是说，一个点最多有一个不跑回起点的出边，且一定存在。 考虑一个满足题目要求的T：它的路径是$\rho$形的。如果不经过根，考虑环：如果环的大小是$m$的约数，则贡献为环的大小。（考虑环的每种拆分，因为环是递增的，路径形如在根绕一会再出去，所以可行） 如果经过根，考虑一个环，是从x点走回根，再走回来，其中走回去的路不能碰到根。那么拆开DP即可。</p>
+<h3 id="「JOISC-2017-Day-1」烟花棒"><a href="#「JOISC-2017-Day-1」烟花棒" class="headerlink" title="「JOISC 2017 Day 1」烟花棒"></a>「JOISC 2017 Day 1」烟花棒</h3><p>题意：每个人可以左右跑，两个人在一起的时候可以选择点燃另一个人，一开始一个人有火，T时间后熄灭，要把所有的都点着，求最小速度 二分速度后求解。考虑两个人相遇后，最优方案：应该是一个人熄灭的时候再点另一个人。那么发现原问题等价于碰到每个人时间+T，要碰每个人。那么考虑把人合并为若干对$(x,y)$，表示需要代价$x$才能进，出来后加$y$的时间。 合并后贪心，如果消完就没了，否则把序列剩下的全加上，把对看作需要退若干代价进去，出来后加一些，再贪心一次。</p>
+<h3 id="APIO2018-选圆圈"><a href="#APIO2018-选圆圈" class="headerlink" title="[APIO2018] 选圆圈"></a>[APIO2018] 选圆圈</h3><p>题意：若干圆，每次操作选最大圆把相交的都删掉，求被谁删 正解的姿势：考虑可能消除一个圆的圆：最多有四个，且与这个圆四边界的直线相交。那么扫描线就行了。或者KD树？</p>
+<h3 id="APIO2018-新家"><a href="#APIO2018-新家" class="headerlink" title="[APIO2018] 新家"></a>[APIO2018] 新家</h3><p>题意：每个东西有属性：类型，出现时间段，位置。询问某时间某位置，每种类型距离min的max 排序一下，上个二分答案：只需区间询问出现次数 考虑一种值在$[l,r]$如果没有出现，那么它在$r$后第一次出现的pre就$&lt;l$。于是维护min pre即可</p>
+<h3 id="APIO2019-奇怪装置"><a href="#APIO2019-奇怪装置" class="headerlink" title="[APIO2019]奇怪装置"></a>[APIO2019]奇怪装置</h3><p>题意：给若干不相交区间，一个位置的值定义为$((t+\lfloor \frac{t}{B} \rfloor) \mod A, t \mod B)$，求有多少对 既然取模，那么循环了：手玩一下可以发现要满足$(B+1)k \equiv 0 \pmod A$，于是应该是$gcd(B+1,A)$。</p>
+<h3 id="APIO2019-桥梁"><a href="#APIO2019-桥梁" class="headerlink" title="[APIO2019]桥梁"></a>[APIO2019]桥梁</h3><p>题意：修改边权，求一个点带权出发能到多少点。能到要满足权不大于边权 根号重构暴力DFS即可</p>
+<h3 id="APIO2019-路灯"><a href="#APIO2019-路灯" class="headerlink" title="[APIO2019]路灯"></a>[APIO2019]路灯</h3><p>题意：序列$[l,r]$可行仅当区间都是$1$。操作反转或询问一开始到现在有多少时刻联通 直接维护点对答案，发现差分一下后矩形加即可。注意询问时如果还联通着，要减去当前时刻</p>
+<h3 id="Easy-win"><a href="#Easy-win" class="headerlink" title="Easy win"></a>Easy win</h3><p>首先有个套路：把边的位置设为1，独立集就是无环图 动态插入的最大线性基的姿势：考虑插入一个新元素。如果能插进去就直接插。考虑维护一个集合，表示当前线性基是由哪些元素搞出来的。对于每个位置维护一下它是这个集合怎么组合出来的。 如果插不进去，考虑把最小的元素换掉。扫过一次之后，得到了当前元素能由哪些组合出来，枚举找一个最小的替换。那么我们可以理解我们用一个集合代替了之前的一个元素，于是枚举集合中的所有元素，xor上当前元素的集合。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">130</span>;</span><br><span class="line">std::bitset&lt;N&gt; A[N], B[N];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> ans, w[N];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">bool</span> ins[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(std::bitset&lt;N&gt; a, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">  std::bitset&lt;N&gt; b;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">128</span>; ~i; --i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!a[i]) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">if</span> (!ins[i]) &#123;</span><br><span class="line">      ins[i] = <span class="number">1</span>;</span><br><span class="line">      ans += v;</span><br><span class="line">      w[++cnt] = v;</span><br><span class="line">      b[cnt] = <span class="number">1</span>;</span><br><span class="line">      A[i] = a;</span><br><span class="line">      B[i] = b;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      a ^= A[i];</span><br><span class="line">      b ^= B[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++i)</span><br><span class="line">    <span class="keyword">if</span> (b[i] &amp;&amp; (pos == <span class="number">-1</span>  (w[i] &lt; w[pos])))</span><br><span class="line">       pos = i;</span><br><span class="line">  <span class="keyword">if</span> (~pos &amp;&amp; v &gt; w[pos]) &#123;</span><br><span class="line">    ans += v - w[pos];</span><br><span class="line">    w[pos] = v;</span><br><span class="line">    b[pos] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">128</span>; ~i; --i)</span><br><span class="line">      <span class="keyword">if</span> (ins[i] &amp;&amp; B[i][pos])</span><br><span class="line">        B[i] ^= b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="WC2019-I君的商店"><a href="#WC2019-I君的商店" class="headerlink" title="[WC2019]I君的商店"></a>[WC2019]I君的商店</h3><p>考虑权值相等的时候随便返回一个东西，其实就是把小于变成小于等于。 考虑如果已知序列形如11111…110000…000怎么做：直接二分分界点即可。 考虑不是这样怎么做：维护三个指针a,b,c，先比较一下令a&lt;=b，再比较a+b和c的大小：要么a=0，要么b&gt;=c。于是可以得到若干0和一条偏序链。二分即可</p>
+<h3 id="NOI2019-I君的探险"><a href="#NOI2019-I君的探险" class="headerlink" title="[NOI2019]I君的探险"></a>[NOI2019]I君的探险</h3><p>考虑树，且父亲比自己小：二分mid，把之前的都改一下，查自己的值。整体二分即可 考虑一般图：随机排列做上面的操作即可。复杂度不太会证，反正能过</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/24/%E6%9D%82%E9%A2%98%E4%B9%B1%E5%81%9A/" rel="prev" title="杂题乱做1">
+                  <i class="fa fa-chevron-left"></i> 杂题乱做1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/15/csp2020%E8%B4%AA%E5%90%83%E8%9B%87-%E8%B4%AA%E5%BF%83/" rel="next" title="CSP2020贪吃蛇 贪心">
+                  CSP2020贪吃蛇 贪心 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

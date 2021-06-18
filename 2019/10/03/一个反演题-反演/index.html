@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="题目 $$\sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [lcm(a,b) &gt; n]$$ $n \leq 10^{10}$  解法 $$\sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [lcm(a,b) &gt; n]$$ $$&#x3D;n^2 - \sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个反演题 反演">
+<meta property="og:url" content="http://oi.baka.online/2019/10/03/%E4%B8%80%E4%B8%AA%E5%8F%8D%E6%BC%94%E9%A2%98-%E5%8F%8D%E6%BC%94/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="题目 $$\sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [lcm(a,b) &gt; n]$$ $n \leq 10^{10}$  解法 $$\sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [lcm(a,b) &gt; n]$$ $$&#x3D;n^2 - \sum_{a&#x3D;1}^n \sum_{b&#x3D;1}^n [">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-03T03:32:56.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.384Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/10/03/%E4%B8%80%E4%B8%AA%E5%8F%8D%E6%BC%94%E9%A2%98-%E5%8F%8D%E6%BC%94/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;10&#x2F;03&#x2F;%E4%B8%80%E4%B8%AA%E5%8F%8D%E6%BC%94%E9%A2%98-%E5%8F%8D%E6%BC%94&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;10&#x2F;03&#x2F;一个反演题-反演&#x2F;&quot;,&quot;title&quot;:&quot;一个反演题 反演&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>一个反演题 反演 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/10/03/%E4%B8%80%E4%B8%AA%E5%8F%8D%E6%BC%94%E9%A2%98-%E5%8F%8D%E6%BC%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一个反演题 反演
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-03 11:32:56" itemprop="dateCreated datePublished" datetime="2019-10-03T11:32:56+08:00">2019-10-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>$$\sum_{a=1}^n \sum_{b=1}^n [lcm(a,b) &gt; n]$$ $n \leq 10^{10}$</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>$$\sum_{a=1}^n \sum_{b=1}^n [lcm(a,b) &gt; n]$$ $$=n^2 - \sum_{a=1}^n \sum_{b=1}^n [lcm(a,b) \leq n]$$ $$\sum_{a=1}^n \sum_{b=1}^n [lcm(a,b) \leq n]$$ $$=\sum_{a=1}^n \sum_{b=1}^n [\frac{ab}{gcd(a,b)} \leq n]$$ 令$d=gcd(a,b)$ $$=\sum_{a=1}^n \sum_{b=1}^n [\frac{ab}{d} \leq n]$$ $$=\sum_{d=1}^n \sum_{a=1}^{\lfloor \frac{n}{d} \rfloor} \sum_{b=1}^{\lfloor \frac{n}{d} \rfloor} [abd \leq n] [gcd(a,b)=1]$$ $$=\sum_{d=1}^n \sum_{a=1}^{\lfloor \frac{n}{d} \rfloor} \sum_{b=1}^{\lfloor \frac{n}{d} \rfloor} [d \leq \frac{n}{ab}] [gcd(a,b)=1]$$ 发现后面的$gcd$和$d$没有关系，可以直接求有多少个 $$=\sum_{a=1}^n \sum_{b=1}^n [gcd(a,b) = 1] \lfloor \frac{n}{ab} \rfloor$$ 进行一个反演 $$=\sum_{a=1}^n \sum_{b=1}^n \sum_{d \mid a,b} \mu(d) \lfloor \frac{n}{ab} \rfloor$$ $$=\sum_{d = 1}^n \mu(d) \sum_{a=1}^{\lfloor \frac{n}{d} \rfloor} \sum_{b=1}^{\lfloor \frac{n}{d} \rfloor} \lfloor \frac{n}{adbd} \rfloor$$ $$=\sum_{d = 1}^n \mu(d) \sum_{a=1}^{\lfloor \frac{n}{d} \rfloor} \sum_{b=1}^{\lfloor \frac{n}{d} \rfloor} \lfloor \frac{\lfloor \frac{n}{d^2} \rfloor }{ab} \rfloor$$ 可以发现，$a,b$枚举范围过大是没有用的。更改$a,b$后，$d$也可以随之更改范围 $$=\sum_{d = 1}^{\sqrt n} \mu(d) \sum_{a=1}^{\lfloor \frac{n}{d^2} \rfloor} \sum_{b=1}^{\lfloor \frac{n}{d^2} \rfloor} \lfloor \frac{\lfloor \frac{n}{d^2} \rfloor }{ab} \rfloor$$ 设一个$f(x)$ $$f(x) = \sum_{a=1}^x \sum_{b=1}^x \lfloor \frac{x }{ab} \rfloor$$ 推一下$f(x)$的式子： $$f(x) = \sum_{a=1}^x \sum_{b=1}^x \lfloor \frac{ \lfloor \frac{x}{a} \rfloor }{b} \rfloor$$ 再设一个$g(x)$： $$g(x) = \sum_{i=1}^x \lfloor \frac{x}{i} \rfloor$$ 有一个这样的式子可以用： $$ \sum_{i=1}^x \lfloor \frac{x}{i} \rfloor = \sum_{i=1}^x d(i)$$ 其中$d(i)$表示$i$有多少约数。 证明： $$\sum_{a=1}^n d(a) = \sum_{a=1}^n \sum_{b \mid a} 1 = $$ $$=\sum_{b=1}^n \sum_{a=1}^{\lfloor \frac{n}{b} \rfloor} 1 = \sum_{b=1}^n \lfloor \frac{n}{b} \rfloor $$ 然后$d$是积性函数，可以线性筛的。我们预处理$[1,n^{\frac{2}{3&#125;&#125;]$的$d$。对于计算$x &gt; n^{\frac{2}{3&#125;&#125;$的$g(x)$的时候，多余的部分直接整除分块就可以了。 积分不熟，以下部分参考了<a target="_blank" rel="noopener" href="https://blog.csdn.net/a_crazy_czy/article/details/53106627">这里</a> 复杂度计算： $$\int_1^{n^\frac{1}{3&#125;&#125; \sqrt \frac{n}{x} dx$$ $$= \sqrt n \int_1^{n^\frac{1}{3&#125;&#125; x^{-\frac{1}{2&#125;&#125; dx$$ $$= \sqrt n (2(n^{\frac{1}{3&#125;&#125;)^{\frac{1}{2&#125;&#125; - 2)$$ $$= O(n^{\frac{2}{3&#125;&#125;)$$ 这样，计算一次$f(n)$的复杂度是$O(n^{\frac{2}{3&#125;&#125;)$ 然而我们发现，$f(x)$算了$\sqrt n$次。计算总复杂度如下： $$\int_{1}^{\sqrt n} (\frac{n}{x^2})^{\frac{2}{3&#125;&#125; dx$$ $$= n^{\frac{2}{3&#125;&#125; \int_1^{\sqrt n} x^{-\frac{3}{4&#125;&#125; dx $$ $$= n^{\frac{2}{3&#125;&#125; (-3n^{-\frac{1}{6&#125;&#125; + 3)$$ $$= O(n^{\frac{2}{3&#125;&#125;)$$ 于是就做完了。（迫真noip模拟题</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/01/beijing2011%E6%A2%A6%E6%83%B3%E5%B0%81%E5%8D%B0-%E7%BA%BF%E6%80%A7%E5%9F%BA/" rel="prev" title="BeiJing2011梦想封印 线性基">
+                  <i class="fa fa-chevron-left"></i> BeiJing2011梦想封印 线性基
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/03/%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%8F%90%E9%AB%98%E6%99%BA%E5%95%86-%E6%99%BA%E5%95%86/" rel="next" title="【UR">
+                  【UR <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

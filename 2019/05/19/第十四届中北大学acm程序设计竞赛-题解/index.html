@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="看了看，题比去年的简单很多，而且真大佬们都没来。封榜之前切了九道题，后面一小时一个没过，没想到还是Rank1了。。。 中北大学官网挂了，所以先从别的博客里找题面…代码也等复活再补 一些吐槽：气球没给够，还有一个漏气了…那个评测机性能太差啦！！！！成功吃我5发罚时。还有学校居然不给奖品&#x2F;给本校的有特等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第十四届中北大学ACM程序设计竞赛 题解">
+<meta property="og:url" content="http://oi.baka.online/2019/05/19/%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%B1%8A%E4%B8%AD%E5%8C%97%E5%A4%A7%E5%AD%A6acm%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="看了看，题比去年的简单很多，而且真大佬们都没来。封榜之前切了九道题，后面一小时一个没过，没想到还是Rank1了。。。 中北大学官网挂了，所以先从别的博客里找题面…代码也等复活再补 一些吐槽：气球没给够，还有一个漏气了…那个评测机性能太差啦！！！！成功吃我5发罚时。还有学校居然不给奖品&#x2F;给本校的有特等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-18T16:57:49.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.584Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2019/05/19/%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%B1%8A%E4%B8%AD%E5%8C%97%E5%A4%A7%E5%AD%A6acm%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B-%E9%A2%98%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2019&#x2F;05&#x2F;19&#x2F;%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%B1%8A%E4%B8%AD%E5%8C%97%E5%A4%A7%E5%AD%A6acm%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B-%E9%A2%98%E8%A7%A3&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;05&#x2F;19&#x2F;第十四届中北大学acm程序设计竞赛-题解&#x2F;&quot;,&quot;title&quot;:&quot;第十四届中北大学ACM程序设计竞赛 题解&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>第十四届中北大学ACM程序设计竞赛 题解 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-CQW%E5%8F%88%E8%BF%9F%E5%88%B0%E4%BA%86"><span class="nav-number">1.</span> <span class="nav-text">A.CQW又迟到了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-CQW%E7%9A%84%E5%80%94%E5%BC%BA"><span class="nav-number">2.</span> <span class="nav-text">B.CQW的倔强</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-WYS%E9%9D%9E%E5%B8%B8%E6%96%B9"><span class="nav-number">3.</span> <span class="nav-text">C.WYS非常方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-%E7%BB%9D%E5%AF%B9%E5%BC%BA%E8%80%85LYF"><span class="nav-number">4.</span> <span class="nav-text">D.绝对强者LYF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-1009%E7%9A%84%E5%A5%87%E6%80%9D%E5%A6%99%E6%83%B3"><span class="nav-number">5.</span> <span class="nav-text">E.1009的奇思妙想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#F-CQW%E7%9A%84%E5%B9%B8%E7%A6%8F"><span class="nav-number">6.</span> <span class="nav-text">F.CQW的幸福</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G-FWJ%E7%9A%84%E8%BF%BD%E6%B1%82%E8%80%85"><span class="nav-number">7.</span> <span class="nav-text">G.FWJ的追求者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H-ZBT%E7%9A%84%E5%AD%A6%E5%88%86"><span class="nav-number">8.</span> <span class="nav-text">H.ZBT的学分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-SHT%E7%9A%84%E6%A2%A6%E6%83%B3"><span class="nav-number">9.</span> <span class="nav-text">I.SHT的梦想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#J-ZBT%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">10.</span> <span class="nav-text">J.ZBT的游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K-ZJ%E5%92%8CLQW%E6%89%93%E7%BE%BD%E6%AF%9B%E7%90%83"><span class="nav-number">11.</span> <span class="nav-text">K.ZJ和LQW打羽毛球</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L-SW%E5%92%8CZK%E7%9A%84%E6%81%8B%E7%88%B1"><span class="nav-number">12.</span> <span class="nav-text">L.SW和ZK的恋爱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M-SunW%E7%9A%84%E5%81%87%E6%9C%9F"><span class="nav-number">13.</span> <span class="nav-text">M.SunW的假期</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2019/05/19/%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%B1%8A%E4%B8%AD%E5%8C%97%E5%A4%A7%E5%AD%A6acm%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B-%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第十四届中北大学ACM程序设计竞赛 题解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-19 00:57:49" itemprop="dateCreated datePublished" datetime="2019-05-19T00:57:49+08:00">2019-05-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>看了看，题比去年的简单很多，而且真大佬们都没来。封榜之前切了九道题，后面一小时一个没过，没想到还是Rank1了。。。 中北大学官网挂了，所以先从别的博客里找题面…代码也等复活再补 一些吐槽：气球没给够，还有一个漏气了…那个评测机性能太差啦！！！！成功吃我5发罚时。还有学校居然不给奖品/给本校的有特等奖我的是一等奖… 一些奇怪的总结：考试前记得吃饭…考到后面有点饿，想不出来题，状态没了…</p>
+<h3 id="A-CQW又迟到了"><a href="#A-CQW又迟到了" class="headerlink" title="A.CQW又迟到了"></a>A.CQW又迟到了</h3><p>模拟就行了，不说。</p>
+<h3 id="B-CQW的倔强"><a href="#B-CQW的倔强" class="headerlink" title="B.CQW的倔强"></a>B.CQW的倔强</h3><p>暴力能过，不说。</p>
+<h3 id="C-WYS非常方"><a href="#C-WYS非常方" class="headerlink" title="C.WYS非常方"></a>C.WYS非常方</h3><p>给定n&lt;=5000个点，求能围成的最大矩形。 枚举对角线，然后算出另外两个点坐标。这题内存开的小，用set存点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> kai586123 &#123;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">rd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">0</span>; <span class="keyword">char</span> c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) a = c == <span class="string">&#x27;-&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) b = b * <span class="number">10</span> + c - <span class="string">&#x27;0&#x27;</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> a ? b : -b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, ans = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">&#125; p[<span class="number">5000</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//int map[6000][6000];</span></span><br><span class="line"></span><br><span class="line">set&lt;<span class="keyword">int</span>&gt; map[<span class="number">6000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc_xielv</span><span class="params">(Point a, Point b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b.y &gt;= a.y) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    n = <span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        p[i].x = <span class="built_in">rd</span>();</span><br><span class="line">        p[i].y = <span class="built_in">rd</span>();</span><br><span class="line"><span class="comment">//      map[p[i].x][p[i].y] = true;</span></span><br><span class="line">        map[p[i].x].<span class="built_in">insert</span>(p[i].y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">            Point a = p[i], b = p[j];</span><br><span class="line">            <span class="keyword">if</span> (a.x &gt; b.x)</span><br><span class="line">                <span class="built_in">swap</span>(a, b);</span><br><span class="line">            <span class="keyword">int</span> xl = <span class="built_in">calc_xielv</span>(a, b);</span><br><span class="line">            <span class="keyword">if</span> (xl == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = <span class="built_in">abs</span>(a.x - b.x) + <span class="built_in">abs</span>(a.y - b.y);</span><br><span class="line">                <span class="keyword">if</span> (tmp &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">int</span> x1 = b.x - tmp / <span class="number">2</span>, x2 = a.x + tmp / <span class="number">2</span>, y1 = a.y + tmp / <span class="number">2</span>, y2 = b.y - tmp / <span class="number">2</span>;</span><br><span class="line"><span class="comment">//                  if (map[x1][y1] &amp;&amp; map[x2][y2]) &#123;</span></span><br><span class="line"><span class="comment">//                      ans = max(ans, ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) / 2);</span></span><br><span class="line"><span class="comment">//                  &#125;</span></span><br><span class="line">                    <span class="keyword">if</span> (x1 &gt; N  x2 &gt; N  y1 &gt; N  y2 &gt; N) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span> (x1 &lt; <span class="number">1</span>  x2 &lt; <span class="number">1</span>  y1 &lt; <span class="number">1</span>  y2 &lt; <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span> (map[x1].<span class="built_in">find</span>(y1) != map[x1].<span class="built_in">end</span>() &amp;&amp; map[x2].<span class="built_in">find</span>(y2) != map[x2].<span class="built_in">end</span>()) &#123;</span><br><span class="line">                        ans = <span class="built_in">max</span>(ans, ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) / <span class="number">2</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = <span class="built_in">abs</span>(a.x - b.x) + <span class="built_in">abs</span>(a.y - b.y);</span><br><span class="line">                <span class="keyword">if</span> (tmp &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//                  int x1 = b.x - tmp / 2, x2 = a.x + tmp / 2, y1 = a.y + tmp / 2, y2 = b.y - tmp / 2;</span></span><br><span class="line">                    <span class="keyword">int</span> x1 = a.x + tmp / <span class="number">2</span>, x2 = b.x - tmp / <span class="number">2</span>, y1 = b.y + tmp / <span class="number">2</span>, y2 = a.y - tmp / <span class="number">2</span> ;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (x1 &gt; N  x2 &gt; N  y1 &gt; N  y2 &gt; N) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span> (x1 &lt; <span class="number">1</span>  x2 &lt; <span class="number">1</span>  y1 &lt; <span class="number">1</span>  y2 &lt; <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (map[x1].<span class="built_in">find</span>(y1) != map[x1].<span class="built_in">end</span>() &amp;&amp; map[x2].<span class="built_in">find</span>(y2) != map[x2].<span class="built_in">end</span>()) &#123;</span><br><span class="line">                        ans = <span class="built_in">max</span>(ans, ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) / <span class="number">2</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;data.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    kai586123::<span class="built_in">main</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="D-绝对强者LYF"><a href="#D-绝对强者LYF" class="headerlink" title="D.绝对强者LYF"></a>D.绝对强者LYF</h3><p>水题，排序就行了，不说</p>
+<h3 id="E-1009的奇思妙想"><a href="#E-1009的奇思妙想" class="headerlink" title="E.1009的奇思妙想"></a>E.1009的奇思妙想</h3><p>作为考场唯一A掉这个题的，吐槽一下。。。一开始写的程序本题跑最大数据0.15s，交上去TLE…后来改成本地0.1s的才过… 因为全是四位质数，我们DP，可以随手写出转移方程：$f[i][j]$表示考虑了i位，结尾3位是j的情况。枚举所有四位质数，f[i][后三位]+=f[i-1][前三位]。从前面转移来就行。卡卡常就过了。</p>
+<h3 id="F-CQW的幸福"><a href="#F-CQW的幸福" class="headerlink" title="F.CQW的幸福"></a>F.CQW的幸福</h3><p>把$4^n$个因子换成$2^{2n}$。有个数学结论：令$a=\sum_i {p_i}^{c_i},p \in prime$。那么$a$的因数个数就是$\prod (c_i+1)$。由唯一分解定理，组合一下，显然成立。我们筛出2n个质数塞进小根堆里，每次取出一个乘进答案，平方一下塞回堆里。</p>
+<h3 id="G-FWJ的追求者"><a href="#G-FWJ的追求者" class="headerlink" title="G.FWJ的追求者"></a>G.FWJ的追求者</h3><p>显然如果能表示出1~n/2，那么只需要一个n-n/2就可以表示剩下的。每次/2，cnt+1。</p>
+<h3 id="H-ZBT的学分"><a href="#H-ZBT的学分" class="headerlink" title="H.ZBT的学分"></a>H.ZBT的学分</h3><p>如果存在喜欢的，就枚举选哪个，转化为不存在喜欢的情况。 有32个活动，$O(2^{32})$枚举必TLE。然而我们可以借鉴meet in the middle搜索那种做法，折半的做。 即把活动分成两部分，$O(2^{16})$分别拼一下，然后排序，枚举其中一个，在另一个里面二分，找有多少匹配值。</p>
+<h3 id="I-SHT的梦想"><a href="#I-SHT的梦想" class="headerlink" title="I.SHT的梦想"></a>I.SHT的梦想</h3><p>线段树维护修改，然后查询扩展欧拉定理搞一下。</p>
+<h3 id="J-ZBT的游戏"><a href="#J-ZBT的游戏" class="headerlink" title="J.ZBT的游戏"></a>J.ZBT的游戏</h3><p>线段树+bitset。每个点开个bitset表示存在的颜色。然后就很裸了。</p>
+<h3 id="K-ZJ和LQW打羽毛球"><a href="#K-ZJ和LQW打羽毛球" class="headerlink" title="K.ZJ和LQW打羽毛球"></a>K.ZJ和LQW打羽毛球</h3><p>忘记题了…考场上也没做出来…</p>
+<h3 id="L-SW和ZK的恋爱"><a href="#L-SW和ZK的恋爱" class="headerlink" title="L.SW和ZK的恋爱"></a>L.SW和ZK的恋爱</h3><p>如果某数个位是1，3，7，9，显然只有*10才能加0。 如果是2，4，6，8，*5即可。 如果是5，*2即可。 递归搞一下，完事。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">        cout &lt;&lt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++i)</span><br><span class="line">            cout &lt;&lt; <span class="number">0</span>;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> x = n % <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span>) &#123;</span><br><span class="line">            ++cnt;</span><br><span class="line">            <span class="built_in">dfs</span>(n / <span class="number">10</span>, k - <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="number">1</span>  x == <span class="number">3</span>  x == <span class="number">7</span>  x == <span class="number">9</span>) &#123;</span><br><span class="line">            cout &lt;&lt; n;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; ++i)</span><br><span class="line">                cout &lt;&lt; <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++i)</span><br><span class="line">                cout &lt;&lt; <span class="number">0</span>;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="number">5</span>) &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(n * <span class="number">2</span>, k);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(n * <span class="number">5</span>, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k; cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="built_in">dfs</span>(n, k);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="M-SunW的假期"><a href="#M-SunW的假期" class="headerlink" title="M.SunW的假期"></a>M.SunW的假期</h3><p>掰手指都能数清，略。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/17/jsoi2007%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90%E5%99%A8/" rel="prev" title="JSOI2007文本生成器">
+                  <i class="fa fa-chevron-left"></i> JSOI2007文本生成器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/20/%E4%B8%8A%E5%B8%9D%E4%B8%8E%E9%9B%86%E5%90%88%E7%9A%84%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95/" rel="next" title="上帝与集合的正确用法">
+                  上帝与集合的正确用法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

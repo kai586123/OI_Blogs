@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="一般图最大匹配 比较摸，不是很有学带花树的动力，网上冲浪冲到了随机算法： 首先如果给定的图没有环，直接做类似二分图匹配的匈牙利肯定是对的。如果图中的环都是偶数，增广一下也不会有问题。（二分图就是偶环） 但是如果图中有奇环，可以发现绕环增广会挂掉。。 举个例子，一个大小为$3$的环，选了其中一条边。把">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一般图最大匹配">
+<meta property="og:url" content="http://oi.baka.online/2020/03/14/%E4%B8%80%E8%88%AC%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="一般图最大匹配 比较摸，不是很有学带花树的动力，网上冲浪冲到了随机算法： 首先如果给定的图没有环，直接做类似二分图匹配的匈牙利肯定是对的。如果图中的环都是偶数，增广一下也不会有问题。（二分图就是偶环） 但是如果图中有奇环，可以发现绕环增广会挂掉。。 举个例子，一个大小为$3$的环，选了其中一条边。把">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-14T14:18:00.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.387Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/03/14/%E4%B8%80%E8%88%AC%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;03&#x2F;14&#x2F;%E4%B8%80%E8%88%AC%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;03&#x2F;14&#x2F;一般图最大匹配&#x2F;&quot;,&quot;title&quot;:&quot;一般图最大匹配&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>一般图最大匹配 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/03/14/%E4%B8%80%E8%88%AC%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一般图最大匹配
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-14 22:18:00" itemprop="dateCreated datePublished" datetime="2020-03-14T22:18:00+08:00">2020-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="http://uoj.ac/problem/79">一般图最大匹配</a> 比较摸，不是很有学带花树的动力，网上冲浪冲到了随机算法： 首先如果给定的图没有环，直接做类似二分图匹配的匈牙利肯定是对的。如果图中的环都是偶数，增广一下也不会有问题。（二分图就是偶环） 但是如果图中有奇环，可以发现绕环增广会挂掉。。 举个例子，一个大小为$3$的环，选了其中一条边。把环上所有边取反，就冲突了。 那么怎么做呢？可以发现如果可以钦定增广边的时候的顺序，那么其实直接每次把匹配边找出来就行了。 这个顺序不是很清楚，但是我们可以进行多个轮，每次随机一下出边再匹配，随机次数足够多的话有很大的概率是对的。 <a target="_blank" rel="noopener" href="http://bzoj.blog.uoj.ac/blog/2427">这里是Hack方法</a> 对随机法进行一些优化：不采用开始前随机，而采用在DFS内部每次随机。每一轮不清空匹配数组。用时间戳优化复杂度。事实证明这样甚至可以过掉UOJ上的Hack数据..</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">rd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">0</span>; <span class="keyword">char</span> c = <span class="built_in">getchar</span>();</span><br><span class="line">  <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) a = c == <span class="string">&#x27;-&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) b = b * <span class="number">10</span> + c - <span class="string">&#x27;0&#x27;</span>, c = <span class="built_in">getchar</span>();</span><br><span class="line">  <span class="keyword">return</span> a ? b : -b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">550</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, ans[N], vis[N], link[N], cnt, now;</span><br><span class="line"></span><br><span class="line">std::vector&lt;<span class="keyword">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">  vis[x] = id;</span><br><span class="line">  std::<span class="built_in">random_shuffle</span>(G[x].<span class="built_in">begin</span>(), G[x].<span class="built_in">end</span>());</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> y : G[x]) &#123;</span><br><span class="line">    <span class="keyword">int</span> z = link[y];</span><br><span class="line">    <span class="keyword">if</span> (vis[z] == id)</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    link[x] = y; link[y] = x;</span><br><span class="line">    link[z] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!z  <span class="built_in">dfs</span>(z, id))</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    link[y] = z; link[z] = y;</span><br><span class="line">    link[x] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  n = <span class="built_in">rd</span>(), m = <span class="built_in">rd</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="built_in">rd</span>(), y = <span class="built_in">rd</span>();</span><br><span class="line">    G[x].<span class="built_in">push_back</span>(y);</span><br><span class="line">    G[y].<span class="built_in">push_back</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(vis));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= n; ++x)</span><br><span class="line">      <span class="keyword">if</span> (!link[x])</span><br><span class="line">        <span class="built_in">dfs</span>(x, x);</span><br><span class="line">    <span class="keyword">int</span> now = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">      now += (<span class="keyword">bool</span>)(link[j]);</span><br><span class="line">    <span class="keyword">if</span> (now &gt; cnt) &#123;</span><br><span class="line">      cnt = now;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">        ans[j] = link[j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, cnt / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, ans[i]);</span><br><span class="line">  <span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Update：带花树（真香 随机匹配其实挺好的，就是跑的慢。所以还是需要稳定优秀的Blossom Algorithm。 首先想一下二分图最大匹配是怎么玩的：</p>
+<ol>
+<li>定义增广路。即未匹配边和匹配边交替出现的一条路径。增广路取反后答案+1。</li>
+<li>增广路定理。找不到增广路的时候就是最大匹配。</li>
+</ol>
+<p>这两个并不是定义在二分图上的。所以一般图匹配的步骤也是这样的：</p>
+<ol>
+<li>枚举每个点</li>
+<li>找这个点出发的增广路并更新</li>
+<li>枚举下一个点</li>
+</ol>
+<p>所以问题就变成了找一个点出发的增广路。考虑对图染色。从一个黑点出发，把路径染成一黑一白的样子。那么图就有三种点：黑，白，未染色。</p>
+<ol>
+<li>考虑搜索路径。如果当前在黑点，并且搜到了一个白点，那么可以直接忽略这个点。</li>
+<li>如果搜到了一个未染色点，考虑这个点是不是匹配点。如果不是匹配点，说明找到了增广路。</li>
+<li>如果是匹配点，那么钦定它是白色，并移动到它匹配的另一个点上，染黑色，继续。</li>
+<li>如果图中存在奇环，会遇到两个黑点相邻的情况。考虑环上有一条到外面的路，发现无论起点是什么颜色，都可以走出去。也就是说环上每个点都应该是黑点。</li>
+</ol>
+<p>定义一个$2k+1$大小，$k$条匹配边的奇环为<strong>花</strong>。花中的未匹配点为<strong>花托</strong>。因为整个花都是黑点，定义<strong>缩花</strong>操作为把花缩成一个点。因为每次至少缩两个点，操作次数是线性的。 思路就是这样的，下面说一下算法细节：</p>
+<ol>
+<li>BFS遍历图，染色</li>
+<li>找到奇环时，找到两点的LCA，并缩花</li>
+<li>因为有一个遍历的过程，维护pre[]，表示返回时要返回到哪里</li>
+<li>不执行实际的缩花操作，用并查集维护</li>
+</ol>
+<p>之后看代码吧</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e3</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, match[N], pre[N], ans;</span><br><span class="line"><span class="keyword">int</span> col[N], fa[N];</span><br><span class="line"><span class="keyword">int</span> que[N], head, tail;</span><br><span class="line">std::vector&lt;<span class="keyword">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x == fa[x] ? x : fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 暴力找LCA，交替爬升</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get_lca</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">int</span> hash[N], hash_cnt;</span><br><span class="line">  ++hash_cnt;</span><br><span class="line">  <span class="keyword">while</span> (hash[x] != hash_cnt) &#123;</span><br><span class="line">    <span class="keyword">if</span> (x) hash[x] = hash_cnt, x = <span class="built_in">find</span>(pre[match[x]]);</span><br><span class="line">    std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码照搬了网上的，1表示白2表示黑</span></span><br><span class="line"><span class="comment">// fa维护的是在哪个花</span></span><br><span class="line"><span class="comment">// 把白点变成黑点并入队</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">blossom</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">find</span>(x) != p) &#123;</span><br><span class="line">    pre[x] = y;</span><br><span class="line">    fa[y = match[x]] = fa[x] = p;</span><br><span class="line">    <span class="keyword">if</span> (col[y] == <span class="number">1</span>)</span><br><span class="line">      col[que[tail++] = y] = <span class="number">2</span>;</span><br><span class="line">    x = pre[y];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> st)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    col[i] = <span class="number">0</span>, fa[i] = i;</span><br><span class="line">  col[que[tail = <span class="number">1</span>, head = <span class="number">0</span>] = st] = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">while</span> (head != tail) &#123;</span><br><span class="line">    <span class="keyword">int</span> x = que[head++];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y : G[x]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!col[y]) &#123;</span><br><span class="line">        col[y] = <span class="number">1</span>, pre[y] = x;</span><br><span class="line">        <span class="keyword">if</span> (!match[y]) &#123;</span><br><span class="line">          <span class="comment">// 增广</span></span><br><span class="line">          <span class="keyword">while</span> (x) &#123;</span><br><span class="line">            x = match[pre[y]];</span><br><span class="line">            match[match[y] = pre[y]] = y;</span><br><span class="line">            y = x;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">          col[que[tail++] = match[y]] = <span class="number">2</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (col[y] == <span class="number">2</span> &amp;&amp; <span class="built_in">find</span>(x) != <span class="built_in">find</span>(y)) &#123;</span><br><span class="line">        <span class="comment">// 奇环，缩花</span></span><br><span class="line">        <span class="keyword">int</span> p = <span class="built_in">get_lca</span>(x, y);</span><br><span class="line">        <span class="built_in">blossom</span>(x, y, p);</span><br><span class="line">        <span class="built_in">blossom</span>(y, x, p);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, x, y; i &lt;= m; ++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;x, &amp;y);</span><br><span class="line">    G[x].<span class="built_in">push_back</span>(y);</span><br><span class="line">    G[y].<span class="built_in">push_back</span>(x);</span><br><span class="line">    <span class="keyword">if</span> (!match[x] &amp;&amp; !match[y])</span><br><span class="line">      match[x] = y, match[y] = x, ++ans;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (!match[i] &amp;&amp; <span class="built_in">bfs</span>(i))</span><br><span class="line">      ++ans;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ans);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, match[i]);</span><br><span class="line">  <span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/01/%E3%80%90uer-8%E3%80%91%E9%9B%AA%E7%81%BE%E4%B8%8E%E5%A4%96%E5%8D%96-%E6%A8%A1%E6%8B%9F%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="prev" title="【UER">
+                  <i class="fa fa-chevron-left"></i> 【UER
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/03/25/cf100958i-substring-pairs-dp/" rel="next" title="CF100958I Substring Pairs DP">
+                  CF100958I Substring Pairs DP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;oi.baka.online&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="[SDOI2019]世界地图 只需要把前缀后缀的MST合并。考虑加入边的过程，只会删掉原来的环上的边。也就是说明只需要维护一些环即可。进一步的，可以把环上的链缩起来。 想法很简单，之后代码就不会写了。。网上冲浪后学习到了实现技巧： 直接暴力Kruskal合并两棵树。之后只需要在新树上缩掉一些边即可。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDOI2019世界地图 最小生成树">
+<meta property="og:url" content="http://oi.baka.online/2020/05/18/sdoi2019%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/index.html">
+<meta property="og:site_name" content="Baka&#39;s Blog">
+<meta property="og:description" content="[SDOI2019]世界地图 只需要把前缀后缀的MST合并。考虑加入边的过程，只会删掉原来的环上的边。也就是说明只需要维护一些环即可。进一步的，可以把环上的链缩起来。 想法很简单，之后代码就不会写了。。网上冲浪后学习到了实现技巧： 直接暴力Kruskal合并两棵树。之后只需要在新树上缩掉一些边即可。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-18T11:59:51.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:25.217Z">
+<meta property="article:author" content="kai586123">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://oi.baka.online/2020/05/18/sdoi2019%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;oi.baka.online&#x2F;2020&#x2F;05&#x2F;18&#x2F;sdoi2019%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;05&#x2F;18&#x2F;sdoi2019世界地图-最小生成树&#x2F;&quot;,&quot;title&quot;:&quot;SDOI2019世界地图 最小生成树&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>SDOI2019世界地图 最小生成树 | Baka's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Baka's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">kai586123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://oi.baka.online/2020/05/18/sdoi2019%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="kai586123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Baka's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SDOI2019世界地图 最小生成树
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-18 19:59:51" itemprop="dateCreated datePublished" datetime="2020-05-18T19:59:51+08:00">2020-05-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-17 23:15:25" itemprop="dateModified" datetime="2021-06-17T23:15:25+08:00">2021-06-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5360">[SDOI2019]世界地图</a> 只需要把前缀后缀的MST合并。考虑加入边的过程，只会删掉原来的环上的边。也就是说明只需要维护一些环即可。进一步的，可以把环上的链缩起来。 想法很简单，之后代码就不会写了。。网上冲浪后学习到了实现技巧： 直接暴力Kruskal合并两棵树。之后只需要在新树上缩掉一些边即可。 进行两次DFS：设置叶子节点为初始可用节点。随便选一个叶子开始DFS1。 在DFS1过程中，一个点子树中叶子的数量。如果超过两个叶子，说明这个点在叶子的环上，打标记。 在DFS2过程中，把两个端点都有标记的点加入新树中。用一个变量维护删掉的边的和并累计入答案。 注意到DFS过程是从一个叶子开始的，可以分析出，DFS不需要考虑父亲的情况。这样就简单的实现出来了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调试懒得删了</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::cerr;</span><br><span class="line"><span class="keyword">using</span> std::endl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">105</span>, M = <span class="number">10005</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> SA, SB, SC;</span><br><span class="line"><span class="keyword">int</span> n, m, q, lim, ri[M][N], dn[M][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get_weight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  SA ^= SA &lt;&lt; <span class="number">16</span>;</span><br><span class="line">  SA ^= SA &gt;&gt; <span class="number">5</span>;</span><br><span class="line">  SA ^= SA &lt;&lt; <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> t = SA;</span><br><span class="line">  SA = SB;</span><br><span class="line">  SB = SC;</span><br><span class="line">  SC ^= t ^ SA;</span><br><span class="line">  <span class="keyword">return</span> SC % lim + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> x, y; <span class="keyword">long</span> <span class="keyword">long</span> w;</span><br><span class="line">  <span class="keyword">inline</span> <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Edge &amp;a, <span class="keyword">const</span> Edge &amp;b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a.w &lt; b.w;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MST</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> id;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> sum;</span><br><span class="line">  std::vector&lt;Edge&gt; E;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">MST</span>() &#123; id = sum = <span class="number">0</span>; &#125;</span><br><span class="line">  <span class="built_in">MST</span>(<span class="keyword">int</span> v[]) &#123;</span><br><span class="line">    id = n, E.<span class="built_in">resize</span>(n - <span class="number">1</span>), sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)</span><br><span class="line">      E[i - <span class="number">1</span>] = &#123; i, i + <span class="number">1</span>, v[i] &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">calc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ret = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> e : E)</span><br><span class="line">      ret += e.w;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; pre[M], suf[M];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fa[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x == fa[x] ? x : fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> to, nxt, w;</span><br><span class="line">&#125; G[M * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[M], etot;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">  G[++etot] = &#123; y, head[x], w &#125;, head[x] = etot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">const</span> Edge &amp;e)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">addedge</span>(e.x, e.y, e.w);</span><br><span class="line">  <span class="built_in">addedge</span>(e.y, e.x, e.w);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::vector&lt;Edge&gt; E;</span><br><span class="line"><span class="keyword">int</span> id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tag[M];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sum;</span><br><span class="line"></span><br><span class="line"><span class="comment">// mark all vertexs on line</span></span><br><span class="line"><span class="comment">// O(n)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// std::cout &lt;&lt; x &lt;&lt; std::endl;</span></span><br><span class="line">  <span class="keyword">int</span> son = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = head[x]; i; i = G[i].nxt) &#123;</span><br><span class="line">    <span class="keyword">int</span> y = G[i].to;</span><br><span class="line">    <span class="keyword">if</span> (y != fa)</span><br><span class="line">      son += !!<span class="built_in">dfs1</span>(y, x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (son &gt;= <span class="number">2</span>)</span><br><span class="line">    tag[x] = <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// std::cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; son + tag[x] &lt;&lt; std::endl;</span></span><br><span class="line">  <span class="comment">// std::cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; tag[x] &lt;&lt; std::endl;</span></span><br><span class="line">  <span class="keyword">return</span> son + tag[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> fa, <span class="keyword">int</span> ver, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (tag[x]) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ver)</span><br><span class="line">      E.<span class="built_in">push_back</span>(&#123; tag[x], ver, val &#125;);</span><br><span class="line">    ver = tag[x];</span><br><span class="line">    sum -= val;</span><br><span class="line">    val = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = head[x]; i; i = G[i].nxt) &#123;</span><br><span class="line">    <span class="keyword">int</span> y = G[i].to;</span><br><span class="line">    <span class="keyword">if</span> (y != fa) &#123;</span><br><span class="line">      <span class="built_in">dfs2</span>(y, x, ver, std::<span class="built_in">max</span>(val, G[i].w));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> MST <span class="title">merge</span><span class="params">(<span class="keyword">const</span> MST &amp;a, <span class="keyword">const</span> MST &amp;b, <span class="keyword">int</span> v[])</span> </span>&#123;</span><br><span class="line">  id = a.id + b.id;</span><br><span class="line">  E.<span class="built_in">clear</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> e : a.E)</span><br><span class="line">    E.<span class="built_in">push_back</span>(e);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> e : b.E)</span><br><span class="line">    E.<span class="built_in">push_back</span>(&#123; e.x + a.id, e.y + a.id, e.w &#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    E.<span class="built_in">push_back</span>(&#123; a.id - n + i, a.id + i, v[i] &#125;);</span><br><span class="line">  std::<span class="built_in">sort</span>(E.<span class="built_in">begin</span>(), E.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= id; ++i) &#123;</span><br><span class="line">    fa[i] = i;</span><br><span class="line">    head[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (i &lt;= n  i &gt;= id - n + <span class="number">1</span>)</span><br><span class="line">      tag[i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      tag[i] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  etot = <span class="number">0</span>;</span><br><span class="line">  sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> e : E) &#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="built_in">find</span>(e.x), y = <span class="built_in">find</span>(e.y);</span><br><span class="line">    <span class="keyword">if</span> (x != y) &#123;</span><br><span class="line">      <span class="built_in">addedge</span>(e);</span><br><span class="line">      fa[x] = y;</span><br><span class="line">      sum += e.w;</span><br><span class="line">      <span class="comment">// std::cout &lt;&lt; e.x &lt;&lt; &quot; &quot; &lt;&lt; e.y &lt;&lt; std::endl;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  E.<span class="built_in">clear</span>();</span><br><span class="line">  <span class="built_in">dfs1</span>(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  for (int i = 1; i &lt;= id; ++i)</span></span><br><span class="line"><span class="comment">    cerr &lt;&lt; tag[i] &lt;&lt; &quot; &quot;;</span></span><br><span class="line"><span class="comment">  cerr &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= id; ++i)</span><br><span class="line">    <span class="keyword">if</span> (tag[i]) tag[i] = ++num;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// cerr &lt;&lt; num &lt;&lt; endl;</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">dfs2</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  MST ret; ret.sum = a.sum + b.sum;</span><br><span class="line">  ret.sum += sum;</span><br><span class="line">  ret.E = E, ret.id = num;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  E.clear();</span></span><br><span class="line"><span class="comment">  for (int i = 1; i &lt;= etot; i += 2)</span></span><br><span class="line"><span class="comment">    E.push_back(&#123; G[i].to, G[i + 1].to, G[i].w &#125;);</span></span><br><span class="line"><span class="comment">  MST ret; ret.sum = 0;</span></span><br><span class="line"><span class="comment">  ret.E = E, ret.id = id;</span></span><br><span class="line"><span class="comment">  return ret;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">freopen</span>(<span class="string">&quot;data&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">  std::ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">  std::cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  std::cin &gt;&gt; n &gt;&gt; m &gt;&gt; SA &gt;&gt; SB &gt;&gt; SC &gt;&gt; lim;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)</span><br><span class="line">      ri[j][i] = <span class="built_in">get_weight</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)</span><br><span class="line">      dn[j][i] = <span class="built_in">get_weight</span>();</span><br><span class="line"></span><br><span class="line">  pre[<span class="number">1</span>] = <span class="built_in">MST</span>(dn[<span class="number">1</span>]);</span><br><span class="line">  suf[m] = <span class="built_in">MST</span>(dn[m]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; m; ++i) &#123;</span><br><span class="line">    pre[i] = <span class="built_in">merge</span>(pre[i - <span class="number">1</span>], <span class="built_in">MST</span>(dn[i]), ri[i - <span class="number">1</span>]);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    if (i == 3)</span></span><br><span class="line"><span class="comment">      exit(0);</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt; <span class="number">1</span>; --i)</span><br><span class="line">    suf[i] = <span class="built_in">merge</span>(<span class="built_in">MST</span>(dn[i]), suf[i + <span class="number">1</span>], ri[i]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  std::cin &gt;&gt; q;</span><br><span class="line">  <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">    <span class="keyword">int</span> l, r; std::cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (l == <span class="number">1</span> &amp;&amp; r == m)</span><br><span class="line">      ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (l == <span class="number">1</span>)</span><br><span class="line">      ans = suf[r + <span class="number">1</span>].<span class="built_in">calc</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (r == m)</span><br><span class="line">      ans = pre[l - <span class="number">1</span>].<span class="built_in">calc</span>();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      ans = <span class="built_in">merge</span>(suf[r + <span class="number">1</span>], pre[l - <span class="number">1</span>], ri[m]).<span class="built_in">calc</span>();</span><br><span class="line">    std::cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/05/16/csp2019%E6%A0%91%E4%B8%8A%E7%9A%84%E6%95%B0-%E8%B4%AA%E5%BF%83%E9%93%BE%E8%A1%A8%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="prev" title="CSP2019树上的数 贪心链表并查集">
+                  <i class="fa fa-chevron-left"></i> CSP2019树上的数 贪心链表并查集
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/26/loj6509-%E9%9B%85%E7%A4%BC%E9%9B%86%E8%AE%AD-2018-day7-c-dp%E7%BA%BF%E6%80%A7%E6%B6%88%E5%85%83/" rel="next" title="LOJ6509 雅礼集训 2018 Day7 C DP线性消元">
+                  LOJ6509 雅礼集训 2018 Day7 C DP线性消元 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kai586123</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
